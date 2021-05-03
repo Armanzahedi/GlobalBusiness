@@ -1,0 +1,20 @@
+﻿@using GlobalBusiness.Core.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a href="/Management/Dashboard" class="header__sign-in">
+        <span class="login-txt"> @UserManager.GetUserName(User)</span>
+    </a>
+}
+else
+{
+    <a href="/identity/Account/Login" class="header__sign-in">
+        <span class="login-txt"> ورود</span>
+    </a>
+
+}

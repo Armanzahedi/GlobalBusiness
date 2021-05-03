@@ -16,6 +16,7 @@ namespace GlobalBusiness.DataAccess.Context
         {
         }
         public DbSet<SystemParameter> SystemParameters { get; set; }
+        public DbSet<Log> Logs { get; set; }
         public DbSet<NavigationMenu> NavigationMenu { get; set; }
         public DbSet<RoleMenuPermission> RoleMenuPermission { get; set; }
                 

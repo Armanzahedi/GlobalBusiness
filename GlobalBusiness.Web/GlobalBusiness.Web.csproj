@@ -10,6 +10,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Westwind.AspNetCore.LiveReload" Version="0.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,9 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Management\Controllers\" />
     <Folder Include="Areas\Management\ViewModels\" />
-    <Folder Include="Areas\Management\Views\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>
 

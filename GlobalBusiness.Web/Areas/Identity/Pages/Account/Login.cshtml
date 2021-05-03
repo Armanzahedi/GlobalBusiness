@@ -4,7 +4,82 @@
 @{
     ViewData["Title"] = "Log in";
 }
-<div class="login-signin">
+<partial name="_LoginNav"/>
+<div class="wrapper wrapper-full-page ">
+    <div class="full-page login-page ">
+        <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+        <div class="content">
+            <div class="container">
+                <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                    <form id="account" method="post" role="form" class="form dir-right">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="card card-login card-white">
+                            <div class="card-header">
+                                <img src="~/management/img/card/card-gold.png" />
+                                <h1 class="card-title">Log in</h1>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="mi">face</i>
+                                            </div>
+                                        </div>
+                                        <input asp-for="Input.Username" class="form-control" placeholder="username" autocomplete="off" />
+                                        <span asp-validation-for="Input.Username" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group mb-0">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="mi">lock</i>
+                                            </div>
+                                        </div>
+                                        <input asp-for="Input.Password" class="form-control" placeholder="password" type="password" autocomplete="off" />
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+                                    <div style="display: flex;align-items: center">
+                                        <label asp-for="Input.RememberMe" class="checkbox m-0 text-muted">
+                                            <input asp-for="Input.RememberMe" />
+                                            <span class="ml-2"></span>
+                                            Remember Me
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-gold btn-lg btn-block mb-3">Get Started</button>
+                                <div class="pull-left">
+                                    <h6>
+                                        <a asp-area="Identity" asp-page="/Account/Signup" class="link footer-link">Create Account</a>
+                                    </h6>
+                                </div>
+                                <div class="pull-right">
+                                    <h6>
+                                        <a asp-area="Identity" asp-page="/Account/ForgotPassword" class="link footer-link">Forgot password?</a>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @*@Html.Partial("_Footer")*@
+    </div>
+</div>
+
+
+
+
+
+
+
+@*<div class="login-signin">
     <div class="mb-20">
         <h3>ورود به پنل مدیریت</h3>
         <div class="text-muted font-weight-bold">برای ورود به پنل اطلاعات خود را وارد کنید</div>
@@ -31,9 +106,8 @@
         </div>
         <input class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4" type="submit" value="ورود" />
     </form>
-</div>
+</div>*@
 <style>
-
 </style>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

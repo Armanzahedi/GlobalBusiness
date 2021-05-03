@@ -7,6 +7,7 @@ using GlobalBusiness.Core.Entities;
 using GlobalBusiness.DataAccess.Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace GlobalBusiness.DataAccess.Repositories
 {
@@ -29,9 +30,11 @@ namespace GlobalBusiness.DataAccess.Repositories
     {
         private readonly MyDbContext _context;
         private readonly HttpContextAccessor _httpContext;
-        public BaseRepository(MyDbContext context)
+        private readonly ILogRepository _logger;
+        public BaseRepository(MyDbContext context, ILogRepository logger)
         {
             _context = context;
+            _logger = logger;
             _httpContext ??= new HttpContextAccessor();
         }
         public async Task<List<T>> GetAll()
@@ -64,6 +67,9 @@ namespace GlobalBusiness.DataAccess.Repositories
             entity.InsertUser = GetCurrentUsersName();
             _context.Set<T>().Add(entity);
             await _context.SaveChangesAsync();
+
+            await _logger.LogEvent(entity.GetType().Name, entity.Id, "Add");
+
             return entity;
         }
         public async Task<T> Update(T entity)
@@ -79,6 +85,9 @@ namespace GlobalBusiness.DataAccess.Repositories
 
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
+           await _logger.LogEvent(entity.GetType().Name, entity.Id, "Update");
+
             return entity;
         }
         public async Task<T> AddOrUpdate(T entity)

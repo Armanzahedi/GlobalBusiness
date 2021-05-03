@@ -17,10 +17,22 @@ namespace GlobalBusiness.Web
             IConfigurationRoot configuration = new
                 ConfigurationBuilder().AddJsonFile("appsettings.json",
                 optional: false, reloadOnChange: true).Build();
+
             Log.Logger = new LoggerConfiguration().ReadFrom.Configuration
                 (configuration).CreateLogger();
-
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                Log.Information("Application Starting.");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "The Application failed to start.");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

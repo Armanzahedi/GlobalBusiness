@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GlobalBusiness.DataAccess.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20210502132854_init")]
+    [Migration("20210503090147_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,42 @@ namespace GlobalBusiness.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("GlobalBusiness.Core.Entities.Log", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Action")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("ActionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NewValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TableName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
 
             modelBuilder.Entity("GlobalBusiness.Core.Entities.NavigationMenu", b =>
                 {
@@ -199,7 +235,7 @@ namespace GlobalBusiness.DataAccess.Migrations
                             Id = "75625814-138e-4831-a1ea-bf58e211adff",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "312c8496-1b6e-4490-ac54-ee72b728013c",
+                            ConcurrencyStamp = "46a82099-06e3-4b9e-be21-6f35737972f0",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -207,9 +243,9 @@ namespace GlobalBusiness.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHWKg6M8C6BAEk5wT8aeX28D6E/voRV9NOHDY03y0h9Rx2G4JsVO6yjvEvgF4+F2vQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDoDv5q+aIuigDkvnrYxuaSDDMvb51lmlgOF2UPmsbVJEtRhRvRPXXEtdA0m3y/8mw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "204840a3-7d6e-4a01-9f58-0dfbebeef26b",
+                            SecurityStamp = "077778b7-e481-4b7a-a3f6-ab12fb31f166",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -218,7 +254,7 @@ namespace GlobalBusiness.DataAccess.Migrations
                             Id = "75625814-138e-4831-a1ea-bf58e211acmf",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "0ba03d3c-68f7-4ce9-a093-4f9f53b950d4",
+                            ConcurrencyStamp = "2bf33d43-56e7-421c-8462-2f636ae4aa68",
                             Email = "Superuser@Superuser.com",
                             EmailConfirmed = false,
                             FirstName = "Superuser",
@@ -226,9 +262,9 @@ namespace GlobalBusiness.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERUSER@SUPERUSER.COM",
                             NormalizedUserName = "SUPERUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPeMzoEBDgt/KzHTShuFChXxMCJU+46LKccQHUEmA7+93ZBGJpDdpVPHRtViaNF9eA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG3k6xAB0dl+uQRkOvqw6rEq3XWelBUDHgJrFPBly0EplhKyvQ1tQxahpjr1oN+spw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a0471fe3-1155-44b6-b301-57c821b2b840",
+                            SecurityStamp = "a5706f94-97a7-4943-a99c-f3e4b46b7edc",
                             TwoFactorEnabled = false,
                             UserName = "Superuser"
                         });
@@ -264,21 +300,21 @@ namespace GlobalBusiness.DataAccess.Migrations
                         new
                         {
                             Id = "29bd76db-5835-406d-ad1d-7a0901447c18",
-                            ConcurrencyStamp = "22dc5ce8-0157-4c98-a9e6-937fac3cf905",
+                            ConcurrencyStamp = "527bb53e-788e-4282-b392-0b66cb3e95eb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "d7be43da-622c-4cfe-98a9-5a5161120d24",
-                            ConcurrencyStamp = "6e68b94c-cb42-4eea-80ae-7e8cd6e977d7",
+                            ConcurrencyStamp = "752cceda-5f80-428a-8fe7-eb12de4219e6",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "29bd76db-5835-406d-ad1d-7a0901448abd",
-                            ConcurrencyStamp = "62141364-6660-40e2-b3e2-ea4e483708f0",
+                            ConcurrencyStamp = "cc92bfae-231f-440b-a2ba-d2f43b004fb1",
                             Name = "Superuser",
                             NormalizedName = "SUPERUSER"
                         });
