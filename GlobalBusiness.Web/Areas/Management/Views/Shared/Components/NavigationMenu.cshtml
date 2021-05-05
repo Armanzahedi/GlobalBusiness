@@ -1,0 +1,62 @@
+﻿@model List<GlobalBusiness.Core.Entities.NavigationMenu>
+<div class="sidebar">
+    <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+    -->
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a href="javascript:void(0)" class="simple-text logo-mini">
+                <img class="svg" src="~/management/img/gb.svg" />
+            </a>
+            <a href="javascript:void(0)" class="simple-text logo-normal">
+                Global Business
+            </a>
+        </div>
+        <ul class="nav">
+
+            @foreach (var item in Model.Where(m => m.Id != 2 && m.Visible == true && m.ParentMenuId == null).OrderBy(m => m.DisplayOrder).ToList())
+            {
+                if (item.ControllerName != null && item.ActionName != null)
+                {
+
+                    <li id="nav_@item.ElementIdentifier">
+                        <a asp-area="Management" asp-controller="@item.ControllerName" asp-action="@item.ActionName" asp-route-root="true">
+                            @Html.Raw(item.Icon)
+                            <p>@item.Name</p>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li id="nav_@item.ElementIdentifier">
+                        <a data-toggle="collapse" href="nav_@(item.ElementIdentifier)_childs" aria-expanded="false">
+                            @Html.Raw(item.Icon)
+                            <p>
+                                @item.Name
+                                <b class="caret"></b>
+                            </p>
+                        </a>
+                        <div class="collapse" id="nav_@(item.ElementIdentifier)_childs">
+                            <ul class="nav">
+                                @foreach (var child in Model.Where(m => m.ParentMenuId == item.Id && m.Visible == true))
+                                {
+                                    <li id="nav_item_@child.ElementIdentifier">
+                                        <a asp-area="Management"
+                                           asp-controller="@child.ControllerName"
+                                           asp-action="@child.ActionName"
+                                           asp-route-root="true">
+                                            <span class="sidebar-mini-icon">MB</span>
+                                            <span class="sidebar-normal">
+                                                @child,Name
+                                            </span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

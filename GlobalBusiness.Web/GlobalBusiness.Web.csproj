@@ -1,25 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
+    <PackageReference Include="DatatablesParser-core" Version="1.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="Westwind.AspNetCore.LiveReload" Version="0.3.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\GlobalBusiness.Infrastructure\GlobalBusiness.Infrastructure.csproj" />
   </ItemGroup>
-
   <ItemGroup>
-    <Folder Include="Areas\Management\ViewModels\" />
-    <Folder Include="UploadedFiles\" />
+    <Content Update="Areas\Management\Views\_ViewImports.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Management\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
-
+  <ItemGroup>
+    <Folder Include="wwwroot\management\plugins\" />
+  </ItemGroup>
 </Project>

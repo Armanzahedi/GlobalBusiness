@@ -43,17 +43,14 @@ namespace GlobalBusiness.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Display(Name = "نام کاربری")]
-            [Required(ErrorMessage = "لطفا {0} خود را وارد کنید")]
-            //[EmailAddress(ErrorMessage = "{0} وارد شده معتبر نیست")]
+            [Display(Name = "username or email")]
+            [Required]
             public string Username { get; set; }
 
-            [Display(Name = "رمز عبور")]
-            [Required(ErrorMessage = "لطفا {0} خود را وارد کنید")]
             [DataType(DataType.Password)]
+            [Required]
             public string Password { get; set; }
 
-            [Display(Name = "مرا به خاطر بسپار")]
             public bool RememberMe { get; set; }
         }
 
@@ -83,6 +80,14 @@ namespace GlobalBusiness.Web.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+                // Checking with email
+                if (result.Succeeded == false)
+                {
+                    var user = await _userManager.FindByEmailAsync(Input.Username);
+                    result = await _signInManager
+                        .PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -99,7 +104,7 @@ namespace GlobalBusiness.Web.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "نام کابری یا رمز عبور وارد شده صحیح نیست");
+                    ModelState.AddModelError(string.Empty, "Entered credentials are incorrect");
                     return Page();
                 }
             }

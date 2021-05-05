@@ -22,7 +22,7 @@ namespace GlobalBusiness.Core.Entities
         public string Icon { get; set; }
         public int DisplayOrder { get; set; }
         public string ElementIdentifier { get; set; }
-        public string Area { get; set; }
+        //public string Area { get; set; }
 
         public string ControllerName { get; set; }
 

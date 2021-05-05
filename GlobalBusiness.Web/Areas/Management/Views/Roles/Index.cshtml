@@ -1,0 +1,104 @@
+﻿@using GlobalBusiness.Web.Helpers
+@inject IUserPermissionHelper PermissionHelper
+@{
+    ViewData["Title"] = "Roles";
+}
+<input type="hidden" id="nav_active" value="auth_control">
+<input type="hidden" id="nav_item_active" value="roles">
+<div class="card card-custom">
+    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+        <div class="card-title" style="display: flex; align-items: center;justify-content: space-between">
+            <h3 class="card-label">
+                @ViewData["Title"]
+            </h3>
+            <validate-permission asp-controller="Roles" asp-action="Create">
+                <div class="card-toolbar">
+                    <a onclick="openModal('/Management/Roles/Create')" class="btn btn-success font-weight-bolder">
+                        new recordd
+                    </a>
+                </div>
+            </validate-permission>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-borderless" id="datatable">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(function () {
+            @if (ViewBag.Root != null && ViewBag.Root != false)
+            {
+                <text>
+                    localStorage.removeItem('DataTables_datatable_' + window.location.pathname);
+                </text>
+            }
+            var table = $('#datatable').DataTable({
+                ajax: {
+                    url: '/Management/Roles/LoadGrid',
+                    type: "POST",
+                },
+                stateSave: true,
+                order: [0,"desc"], // descending order with first column witch is hidden id
+                columnDefs: [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                columns: [
+                    { data: "Id" },
+                    { data: "Name" },
+                    {
+                        data: "Id",
+                        responsivePriority: -1,
+                        render: function (data, type, row) {
+                            var content = "";
+                            @{
+                                if (await PermissionHelper.UserHasPermission("Roles", "Edit"))
+                                {
+                                    <text>var element = `\
+                                        <a class='btn btn-sm btn-clean btn-icon mr-2' onclick="openModal('/Management/Roles/Edit/${row.Id}')">\
+                                        <i class='far fa-edit text-primary'></i>\
+                                        </a>\
+                                        `;
+                                    content += element;
+                                    </text>
+                                }
+                                if (await PermissionHelper.UserHasPermission("Roles", "Delete"))
+                                {
+                                    <text>var element = `\
+                                        <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/Roles/Delete/${row.Id}')">\
+                                        <i class='far fa-trash-alt text-danger'></i>\
+                                        </a>\
+                                        `;
+                                    content += element;
+                                    </text>
+                                }
+                                if (await PermissionHelper.UserHasPermission("Roles", "EditRolePermission"))
+                                {
+                                    <text>var element = `<a class='btn btn-light btn-sm ml-2' href='/Management/Roles/EditRolePermission/${row.Id}'>Permissions</a>`;
+                                    content += element;
+                                    </text>
+                                }
+                             }
+                            return content;
+                        },
+                        width:"200px",
+                        orderable: false
+                    },
+
+                ],
+            });
+        });
+    </script>
+}

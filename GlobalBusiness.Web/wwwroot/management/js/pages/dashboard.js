@@ -1,4 +1,4 @@
-﻿var Page = function () {
+﻿    var Page = function () {
 
     // #region initCharts
 

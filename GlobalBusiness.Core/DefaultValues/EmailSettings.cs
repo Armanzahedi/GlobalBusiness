@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GlobalBusiness.Core.ValueObjects
+namespace GlobalBusiness.Core.DefalutValues
 {
     public class EmailSettings
     {

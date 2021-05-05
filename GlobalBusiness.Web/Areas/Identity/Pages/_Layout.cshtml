@@ -12,7 +12,6 @@
 
 
     <!-- Black Dashboard CSS -->
-    <link href="~/management/css/loader.css" rel="stylesheet" />
     <link href="~/management/css/dashboard/black-dashboard.min.css" rel="stylesheet" />
     @RenderSection("Styles", false)
     <link href="~/management/css/style.css" rel="stylesheet" />
@@ -22,46 +21,13 @@
 
     <!-- Plugins CSS -->
     <link href="~/management/plugins/toastr.js/toastr.min.css" rel="stylesheet" />
-
     <link rel="shortcut icon" href="/management/img/fav.png" />
-
-
 </head>
 <body class="dashboard">
-    <partial name="_PreLoader" />
-    <div class="wrapper">
-        <div class="navbar-minimize-fixed">
-            <button class="minimize-sidebar btn btn-link btn-just-icon">
-                <i class="mi visible-on-sidebar-regular text-muted">more_vert</i>
-                <i class="mi visible-on-sidebar-mini text-muted">view_list</i>
-            </button>
-        </div>
-        @await Component.InvokeAsync("NavigationMenu")
-        <div class="main-panel">
-            <!-- Navbar -->
-            @await Component.InvokeAsync("Header")
-            <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <i class="tim-icons icon-simple-remove"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- End Navbar -->
-            <div class="content">
-                @RenderBody()
-            </div>
-            <partial name="_Footer" />
-        </div>
-    </div>
-
+    <partial name="/Areas/Management/Views/Shared/_PreLoader.cshtml" />
 
     @RenderBody()
+    <partial name="/Areas/Management/Views/Shared/_Footer.cshtml" />
 
     @RenderSection("Modals", false)
     <!--   Core JS Files   -->

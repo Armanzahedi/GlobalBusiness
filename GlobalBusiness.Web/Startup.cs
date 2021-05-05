@@ -12,11 +12,12 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using GlobalBusiness.Core.DefalutValues;
 using GlobalBusiness.Core.Entities;
-using GlobalBusiness.Core.ValueObjects;
 using GlobalBusiness.DataAccess.Context;
 using GlobalBusiness.Infrastructure.Helpers;
 using GlobalBusiness.Infrastructure.MiddleWares;
+using GlobalBusiness.Web.Helpers;
 using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +25,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
-using Westwind.AspNetCore.LiveReload;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace GlobalBusiness.Web
 {
@@ -62,11 +63,11 @@ namespace GlobalBusiness.Web
             services.AddSingleton<IEmailSender, EmailSender>();
             //ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("fa");
 
-            //services.AddScoped<IRolePermissionService, RolePermissionService>();
-            //services.AddScoped<IAuthorizationHandler, PermissionHandler>();
-            //services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+            services.AddScoped<IRolePermissionService, RolePermissionService>();
+            services.AddScoped<IAuthorizationHandler, PermissionHandler>();
+            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
 
-            //services.AddScoped<IUserPermissionHelper, UserPermissionHelper>();
+            services.AddScoped<IUserPermissionHelper, UserPermissionHelper>();
 
             services.AddHangfire(configuration => configuration
             .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
@@ -89,13 +90,11 @@ namespace GlobalBusiness.Web
             services.AddSingleton<HtmlEncoder>(
                 HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin,
                     UnicodeRanges.Arabic }));
-            services.AddLiveReload();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseLiveReload();
             app.UseHangfireDashboard();
             if (env.IsDevelopment())
             {
@@ -107,6 +106,7 @@ namespace GlobalBusiness.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles(new StaticFileOptions
             {
@@ -127,6 +127,7 @@ namespace GlobalBusiness.Web
             app.UseAuthentication();
             app.UseAuthorization();
             //app.UseMiddleware<LogUserNameMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

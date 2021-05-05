@@ -12,7 +12,6 @@
             <div class="container">
                 <div class="col-lg-4 col-md-6 ml-auto mr-auto">
                     <form id="account" method="post" role="form" class="form dir-right">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="card card-login card-white">
                             <div class="card-header">
                                 <img src="~/management/img/card/card-gold.png" />
@@ -26,9 +25,9 @@
                                                 <i class="mi">face</i>
                                             </div>
                                         </div>
-                                        <input asp-for="Input.Username" class="form-control" placeholder="username" autocomplete="off" />
-                                        <span asp-validation-for="Input.Username" class="text-danger"></span>
+                                        <input asp-for="Input.Username" class="form-control" placeholder="username or email" autocomplete="off" />
                                     </div>
+                                    <span style="display: block" asp-validation-for="Input.Username" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group mb-0">
@@ -38,8 +37,8 @@
                                             </div>
                                         </div>
                                         <input asp-for="Input.Password" class="form-control" placeholder="password" type="password" autocomplete="off" />
-                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
                                     </div>
+                                    <span style="display: block" asp-validation-for="Input.Password" class="text-danger"></span>
                                 </div>
                                 <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
                                     <div style="display: flex;align-items: center">
@@ -50,6 +49,7 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             </div>
                             <div class="card-footer">
                                 <button class="btn btn-gold btn-lg btn-block mb-3">Get Started</button>

@@ -3,10 +3,26 @@
 @{
     ViewData["Title"] = "Access denied";
 }
-<div class="mb-20">
-    <h3 >خطا!</h3>
-    <h3>شما دسترسی لازم برای ورود به این بخش را ندارید</h3>
-</div>
-<div class="form-group d-flex flex-wrap flex-center mt-10">
-    <a href="@ViewData["ReturnUrl"]" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2">بازگشت</a>
-</div>
+
+    <div class="wrapper wrapper-full-page ">
+        <div class="full-page register-page">
+            <div class="content">
+                <div class="container">
+                    <div class="text-center">
+                        <img class="svg ignoreSvg img-error" style="width:150px;height: auto;" src="~/management/img/vectors/half-moon.svg" />
+                        <h1 class="mt-5 mb-2">Access Denied !</h1>
+                        <p class="text-muted">
+                            It looks like you don't have permission to access this section.
+                        </p>
+                        <a href="@ViewData["ReturnUrl"]">Return</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .error-page .img-error {
+            width: 200px !important;
+            height: auto !important;
+        }
+    </style>

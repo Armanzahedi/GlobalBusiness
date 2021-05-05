@@ -1,1 +1,120 @@
-﻿<h2>Test</h2>
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-chart card-chart-pie">
+            <div class="card-header">
+                <h5 class="card-category">Capping Limit</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="chart-area">
+                            <canvas id="chart-capping"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <h4 class="card-title"><i class="tim-icons  icon-trophy text-success "></i> 829 USD</h4>
+                        <p class="category">Until income limit</p>
+
+                        <ul class="pl-3 mt-3">
+                            <li class="text-success"><small>ROI Profit: 84.24 USD</small></li>
+                            <li class="text-success"><small>IB Profit:  87.00 USD</small></li>
+                            <li class="text-success"><small>Binary Profit: 0.00 USD</small></li>
+                            <li class="text-success"><small>Packages Profit: 171.24 USD</small></li>
+                        </ul>
+                        <p class="text-danger">Maximum Profit: 1000 USD</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-stats mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="info-icon text-center icon-success">
+                            <i class="mi">show_chart</i>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="numbers">
+                            <p class="card-category">Balance</p>
+                            <h3 class="card-title mb-0">8.17 $</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-stats mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="info-icon text-center icon-success">
+                            <i class="mi">show_chart</i>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="numbers">
+                            <p class="card-category">IB Wallet</p>
+                            <h3 class="card-title mb-0">124.74 $</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-stats mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <div class="info-icon text-center icon-success">
+                            <i class="mi">show_chart</i>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="numbers">
+                            <p class="card-category">ROI Wallet</p>
+                            <h3 class="card-title mb-0">94.00 $</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-stats">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-5">
+                        <p class="card-category">Target User</p>
+                        <h3 class="card-title">0</h3>
+                    </div>
+                    <div class="col-7 text-right">
+                        <img class="w-75" src="~/management/img/vectors/target-users.png" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <button type="button" class="px-3 btn btn-neutral text-gold-500 btn-block" data-action="link">Left link</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="px-3 btn btn-neutral text-gold-500 btn-block" data-action="link">Right link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Components{
+    <script src="~/management/js/plugins/chartjs.min.js"></script>
+}
+@section Scripts{
+    <script src="~/management/js/pages/dashboard.js"></script>
+}

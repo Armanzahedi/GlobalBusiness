@@ -1,0 +1,21 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+<input type="hidden" id="title" value="Delete Role" />
+
+<h4 class="card-label">
+    Are you sure you want to delete this record?
+</h4>
+<dl class="row" style="padding-top:10px">
+    <dt class="col-sm-4">
+        Name
+    </dt>
+    <dd class="col-sm-8">
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+</dl>
+<div style="float:left">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Delete" class="btn btn-danger mr-2" />
+    }
+</div>
