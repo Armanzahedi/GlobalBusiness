@@ -1,4 +1,4 @@
-﻿@model List<GlobalBusiness.Core.Entities.NavigationMenu>
+﻿@model List<GlobalBusiness.Web.Areas.Management.ViewModels.NavigationMenuViewModel>
 <div class="sidebar">
     <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
@@ -13,7 +13,12 @@
             </a>
         </div>
         <ul class="nav">
-
+            <li id="nav_dashboard">
+                <a asp-area="Management" asp-controller="Dashboard" asp-action="Index">
+                    <i class="mi">pie_chart</i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
             @foreach (var item in Model.Where(m => m.Id != 2 && m.Visible == true && m.ParentMenuId == null).OrderBy(m => m.DisplayOrder).ToList())
             {
                 if (item.ControllerName != null && item.ActionName != null)
@@ -29,7 +34,7 @@
                 else
                 {
                     <li id="nav_@item.ElementIdentifier">
-                        <a data-toggle="collapse" href="nav_@(item.ElementIdentifier)_childs" aria-expanded="false">
+                        <a data-toggle="collapse" href="#nav_@(item.ElementIdentifier)_childs" id="nav_@(item.ElementIdentifier)_trigger" aria-expanded="false">
                             @Html.Raw(item.Icon)
                             <p>
                                 @item.Name
@@ -47,7 +52,7 @@
                                            asp-route-root="true">
                                             <span class="sidebar-mini-icon">MB</span>
                                             <span class="sidebar-normal">
-                                                @child,Name
+                                                @child.Name
                                             </span>
                                         </a>
                                     </li>

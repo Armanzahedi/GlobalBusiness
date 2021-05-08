@@ -14,7 +14,7 @@
             <validate-permission asp-controller="Roles" asp-action="Create">
                 <div class="card-toolbar">
                     <a onclick="openModal('/Management/Roles/Create')" class="btn btn-success font-weight-bolder">
-                        new recordd
+                        New Record
                     </a>
                 </div>
             </validate-permission>
@@ -68,7 +68,7 @@
                                 {
                                     <text>var element = `\
                                         <a class='btn btn-sm btn-clean btn-icon mr-2' onclick="openModal('/Management/Roles/Edit/${row.Id}')">\
-                                        <i class='far fa-edit text-primary'></i>\
+                                        <i class="mi">create</i>\
                                         </a>\
                                         `;
                                     content += element;
@@ -78,7 +78,7 @@
                                 {
                                     <text>var element = `\
                                         <a class='btn btn-sm btn-clean btn-icon' onclick="openModal('/Management/Roles/Delete/${row.Id}')">\
-                                        <i class='far fa-trash-alt text-danger'></i>\
+                                        <i class="mi">delete</i>\
                                         </a>\
                                         `;
                                     content += element;

@@ -1,3 +1,27 @@
 ﻿.validation-summary-errors ul li {
     color: #fd5d93 !important;
 }
+
+.div.dataTables_wrapper div.dataTables_length select {
+    color: gray !important;
+}
+
+body {
+    padding-right: 0 !important
+}
+
+.btn-danger {
+    background-image: linear-gradient(to bottom left,#c31f57,#ec250d,#fd5d93) !important;
+}
+
+    .btn-danger:hover {
+        background-image: linear-gradient(to bottom left,#c31f57,#ec250d,#fd5d93) !important;
+    }
+
+.btn-gold {
+    background-image: linear-gradient(to bottom left,#deb437,#e6ae03,#ffcf40);
+}
+
+    .btn-gold:hover {
+        background-image: linear-gradient(to bottom left,#deb437,#e6ae03,#ffcf40) !important;
+    }

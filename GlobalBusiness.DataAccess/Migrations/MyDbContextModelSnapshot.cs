@@ -65,13 +65,10 @@ namespace GlobalBusiness.DataAccess.Migrations
                     b.Property<string>("ActionName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Area")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ControllerName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DisplayOrder")
+                    b.Property<int?>("DisplayOrder")
                         .HasColumnType("int");
 
                     b.Property<string>("ElementIdentifier")
@@ -94,6 +91,67 @@ namespace GlobalBusiness.DataAccess.Migrations
                     b.HasIndex("ParentMenuId");
 
                     b.ToTable("AspNetNavigationMenu");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DisplayOrder = 100,
+                            ElementIdentifier = "auth_control",
+                            Icon = "<i class='mi'>settings</i>",
+                            Name = "Acsess Control",
+                            Visible = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ActionName = "Index",
+                            ControllerName = "Roles",
+                            ElementIdentifier = "roles",
+                            Name = "Roles",
+                            ParentMenuId = 1,
+                            Visible = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ActionName = "Create",
+                            ControllerName = "Roles",
+                            ElementIdentifier = "roles",
+                            Name = "Create Role",
+                            ParentMenuId = 1,
+                            Visible = false
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ActionName = "Edit",
+                            ControllerName = "Roles",
+                            ElementIdentifier = "roles",
+                            Name = "Edit Role",
+                            ParentMenuId = 1,
+                            Visible = false
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ActionName = "Delete",
+                            ControllerName = "Roles",
+                            ElementIdentifier = "roles",
+                            Name = "Delete Role",
+                            ParentMenuId = 1,
+                            Visible = false
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ActionName = "EditRolePermission",
+                            ControllerName = "Roles",
+                            ElementIdentifier = "roles",
+                            Name = "Edit Role Permission",
+                            ParentMenuId = 1,
+                            Visible = false
+                        });
                 });
 
             modelBuilder.Entity("GlobalBusiness.Core.Entities.RoleMenuPermission", b =>
@@ -109,6 +167,38 @@ namespace GlobalBusiness.DataAccess.Migrations
                     b.HasIndex("NavigationMenuId");
 
                     b.ToTable("AspNetRoleMenuPermission");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = "29bd76db-5835-406d-ad1d-7a0901448abd",
+                            NavigationMenuId = 1
+                        },
+                        new
+                        {
+                            RoleId = "29bd76db-5835-406d-ad1d-7a0901448abd",
+                            NavigationMenuId = 2
+                        },
+                        new
+                        {
+                            RoleId = "29bd76db-5835-406d-ad1d-7a0901448abd",
+                            NavigationMenuId = 3
+                        },
+                        new
+                        {
+                            RoleId = "29bd76db-5835-406d-ad1d-7a0901448abd",
+                            NavigationMenuId = 4
+                        },
+                        new
+                        {
+                            RoleId = "29bd76db-5835-406d-ad1d-7a0901448abd",
+                            NavigationMenuId = 5
+                        },
+                        new
+                        {
+                            RoleId = "29bd76db-5835-406d-ad1d-7a0901448abd",
+                            NavigationMenuId = 6
+                        });
                 });
 
             modelBuilder.Entity("GlobalBusiness.Core.Entities.SystemParameter", b =>
@@ -233,7 +323,7 @@ namespace GlobalBusiness.DataAccess.Migrations
                             Id = "75625814-138e-4831-a1ea-bf58e211adff",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "46a82099-06e3-4b9e-be21-6f35737972f0",
+                            ConcurrencyStamp = "622ca8e2-7908-4130-bb17-82d03916ece5",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -241,9 +331,9 @@ namespace GlobalBusiness.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDoDv5q+aIuigDkvnrYxuaSDDMvb51lmlgOF2UPmsbVJEtRhRvRPXXEtdA0m3y/8mw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA7MlFk9vN4nD83DPVQ9vKQSvw3SlrbKzcD1YbtAGOchxgcjK8XkkHSbIby/cgkhzg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "077778b7-e481-4b7a-a3f6-ab12fb31f166",
+                            SecurityStamp = "1c55b256-6aad-4822-ae6e-8aeac2786be7",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -252,7 +342,7 @@ namespace GlobalBusiness.DataAccess.Migrations
                             Id = "75625814-138e-4831-a1ea-bf58e211acmf",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "2bf33d43-56e7-421c-8462-2f636ae4aa68",
+                            ConcurrencyStamp = "73074800-a7eb-48dd-a224-a88f7da282ad",
                             Email = "Superuser@Superuser.com",
                             EmailConfirmed = false,
                             FirstName = "Superuser",
@@ -260,9 +350,9 @@ namespace GlobalBusiness.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERUSER@SUPERUSER.COM",
                             NormalizedUserName = "SUPERUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG3k6xAB0dl+uQRkOvqw6rEq3XWelBUDHgJrFPBly0EplhKyvQ1tQxahpjr1oN+spw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK44p9biaaLbyVBh0j4Bwx6o0WO6M7/MUl2B29FJFFIAmZHjXXb+iekkZ0tIamQFOg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a5706f94-97a7-4943-a99c-f3e4b46b7edc",
+                            SecurityStamp = "b10d9ab6-2dbf-449a-8740-e6d787a97702",
                             TwoFactorEnabled = false,
                             UserName = "Superuser"
                         });
@@ -298,21 +388,21 @@ namespace GlobalBusiness.DataAccess.Migrations
                         new
                         {
                             Id = "29bd76db-5835-406d-ad1d-7a0901447c18",
-                            ConcurrencyStamp = "527bb53e-788e-4282-b392-0b66cb3e95eb",
+                            ConcurrencyStamp = "ed92f0ae-9112-455e-97b6-9af26781a891",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "d7be43da-622c-4cfe-98a9-5a5161120d24",
-                            ConcurrencyStamp = "752cceda-5f80-428a-8fe7-eb12de4219e6",
+                            ConcurrencyStamp = "9382f39e-e898-4dc5-8f7d-455b3b56e991",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "29bd76db-5835-406d-ad1d-7a0901448abd",
-                            ConcurrencyStamp = "cc92bfae-231f-440b-a2ba-d2f43b004fb1",
+                            ConcurrencyStamp = "e8a9db2e-dfe6-43cd-9c60-df239092bf69",
                             Name = "Superuser",
                             NormalizedName = "SUPERUSER"
                         });

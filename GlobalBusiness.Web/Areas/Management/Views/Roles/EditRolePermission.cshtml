@@ -1,13 +1,14 @@
-﻿@model List<GlobalBusiness.Core.Entities.NavigationMenu>
+﻿@model List<GlobalBusiness.Web.Areas.Management.ViewModels.NavigationMenuViewModel>
 @{
     ViewData["Title"] = "Edit Role Permission";
 }
-
+<input type="hidden" id="nav_active" value="auth_control">
+<input type="hidden" id="nav_item_active" value="roles">
 <div class="col-lg-6">
     <div class="card card-custom gutter-b">
         <div class="card-header">
             <h3 class="card-title">
-                 Role Permissions : @ViewBag.RoleName
+                Role Permissions : @ViewBag.RoleName
             </h3>
         </div>
         @using (Html.BeginForm())
@@ -17,7 +18,7 @@
                 <ul style="list-style-type: none;">
                     @for (var i = 0; i < Model.Count; i++)
                     {
-                        <li >
+                        <li>
                             <input type="checkbox" asp-for="@Model[i].Permitted" />
                             <label style="margin-left:10px;" asp-for="@Model[i].Permitted">@Model[i].Name</label>
                             <input type="hidden" asp-for="@Model[i].Id" />
@@ -29,8 +30,8 @@
             <br />
             <div class="card-footer">
                 <input type="hidden" name="roleId" id="roleId" value="@ViewBag.RoleID" />
-                <a href="@Url.Action("Index")" class="btn btn-secondary">انصراف</a>
-                <input type="submit" value="ذخیره تغییرات" class="btn btn-primary" />
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+                <input type="submit" value="Submit changes" class="btn btn-gold" />
             </div>
         }
     </div>

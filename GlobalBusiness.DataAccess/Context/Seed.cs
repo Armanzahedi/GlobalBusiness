@@ -78,19 +78,99 @@ namespace GlobalBusiness.DataAccess.Seed
             #region Seed Navigation menue
 
             #endregion
-            //modelBuilder.Entity<NavigationMenu>().HasData(
-            //new NavigationMenu()
-            //{
-            //    Id = new Guid("F704BDFD-D3EA-4A6F-9463-DA47ED3657AB"),
-            //    Name = "External Google Link",
-            //    ControllerName = "",
-            //    ActionName = "",
-            //    IsExternal = true,
-            //    ExternalUrl = "https://www.google.com/",
-            //    ParentMenuId = new Guid("13e2f21a-4283-4ff8-bb7a-096e7b89e0f0"),
-            //    DisplayOrder = 2,
-            //    Visible = true,
-            //},
+
+            modelBuilder.Entity<NavigationMenu>().HasData(
+                new NavigationMenu()
+                {
+                    Id = 1,
+                    Name = "Acsess Control",
+                    ElementIdentifier = "auth_control",
+                    Icon = "<i class='mi'>vpn_key</ i>",
+                    DisplayOrder = 100,
+                    Visible = true,
+                },
+                new NavigationMenu()
+                {
+                    Id = 2,
+                    ParentMenuId = 1,
+                    Name = "Roles",
+                    ControllerName = "Roles",
+                    ActionName = "Index",
+                    ElementIdentifier = "roles",
+                    Visible = true,
+                },
+                new NavigationMenu()
+                {
+                    Id = 3,
+                    ParentMenuId = 1,
+                    ControllerName = "Roles",
+                    ActionName = "Create",
+                    Name = "Create Role",
+                    ElementIdentifier = "roles",
+                    Visible = false,
+                },
+                new NavigationMenu()
+                {
+                    Id = 4,
+                    ParentMenuId = 1,
+                    ControllerName = "Roles",
+                    ActionName = "Edit",
+                    Name = "Edit Role",
+                    ElementIdentifier = "roles",
+                    Visible = false,
+                },
+                new NavigationMenu()
+                {
+                    Id = 5,
+                    ParentMenuId = 1,
+                    ControllerName = "Roles",
+                    ActionName = "Delete",
+                    Name = "Delete Role",
+                    ElementIdentifier = "roles",
+                    Visible = false,
+                },
+                new NavigationMenu()
+                {
+                    Id = 6,
+                    ParentMenuId = 1,
+                    ControllerName = "Roles",
+                    ActionName = "EditRolePermission",
+                    Name = "Edit Role Permission",
+                    ElementIdentifier = "roles",
+                    Visible = false,
+                }
+                );
+            modelBuilder.Entity<RoleMenuPermission>().HasData(
+                new RoleMenuPermission()
+                {
+                    RoleId = SUPER_USER_ROLE_ID,
+                    NavigationMenuId = 1
+                },
+                new RoleMenuPermission()
+                {
+                    RoleId = SUPER_USER_ROLE_ID,
+                    NavigationMenuId = 2
+                },
+                new RoleMenuPermission()
+                {
+                RoleId = SUPER_USER_ROLE_ID,
+                NavigationMenuId = 3
+                }
+                , new RoleMenuPermission()
+                {
+                    RoleId = SUPER_USER_ROLE_ID,
+                    NavigationMenuId = 4
+                }, new RoleMenuPermission()
+                {
+                    RoleId = SUPER_USER_ROLE_ID,
+                    NavigationMenuId = 5
+                }, new RoleMenuPermission()
+                {
+                    RoleId = SUPER_USER_ROLE_ID,
+                    NavigationMenuId = 6
+                }
+                );
+
             //new NavigationMenu()
             //{
             //    Id = new Guid("913BF559-DB46-4072-BD01-F73F3C92E5D5"),

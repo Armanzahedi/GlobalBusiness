@@ -20,7 +20,7 @@ namespace GlobalBusiness.Core.Entities
         public virtual NavigationMenu ParentNavigationMenu { get; set; }
         [AllowHtml]
         public string Icon { get; set; }
-        public int DisplayOrder { get; set; }
+        public int? DisplayOrder { get; set; }
         public string ElementIdentifier { get; set; }
         //public string Area { get; set; }
 

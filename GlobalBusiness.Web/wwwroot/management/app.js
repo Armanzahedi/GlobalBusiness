@@ -40,7 +40,9 @@ var navItemActive = $('#nav_item_active').val();
 if (navActive != null && navActive !== "") {
     $('#nav_' + navActive + '').addClass("active");
     if ($('#nav_' + navActive + '_childs').length) {
-        $('#nav_' + navActive + '_childs').addClass("Show");
+        $('#nav_' + navActive + '_childs').removeClass("collapse");
+        $('#nav_' + navActive + '_childs').addClass("show");
+        $('#nav_' + navActive + '_trigger').attr("aria-expanded","true");
         //$('#nav_' + navActive + '_childs').css("display", "");
         //$('#nav_' + navActive + '_childs').css("overflow", "");
     }
@@ -51,9 +53,10 @@ if (navItemActive != null && navItemActive !== "") {
 }
 
 $.extend(true, $.fn.dataTable.defaults, {
-    dom: `<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'>>
-			<'row'<'col-sm-12'tr>>
-			<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+   // dom: `<'row'<'col-sm-6 text-left'f><'col-sm-6 text-right'>>
+			//<'row'<'col-sm-12'tr>>
+			//<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>`,
+    dom: "<'row'<'col-sm-12 d-flex col-md-6'fl>><'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
     serverSide: true,
     processing: true,
     responsive: true,
@@ -63,6 +66,7 @@ $.extend(true, $.fn.dataTable.defaults, {
     //},
     "initComplete": function (settings, json) {
         $("[name='datatable_length']").css("margin-left", "0.5rem");
+        $("[name='datatable_length']").css("color", "gray");
     }
 });
 toastr.options = {
@@ -87,7 +91,7 @@ $(document).ajaxError(function (event, xhr, ajaxOptions, thrownError) {
     if (xhr.status === 403 || xhr.status === 401) {
         toastr.error("You don't have the required permission to access this section.", "Error");
     } else {
-        toastr.error(thrownError, "Error");
+        toastr.error(xhr.responseText.split(':')[0], "Error");
     }
 });
 function openModal(link) {

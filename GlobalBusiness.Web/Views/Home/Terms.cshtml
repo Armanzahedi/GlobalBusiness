@@ -1,0 +1,22 @@
+﻿@{
+    Layout = Forex.App.Common.Values.ModalLayout;
+    ViewBag.ModalId = "modal-conditions";
+    ViewBag.ModalClass = "modal-lg";
+    ViewBag.Title = Html.Localize("Terms");
+}
+
+@section Body{
+    <div class="row">
+        <div class="col-md-6">
+            @Html.Raw(Model)
+            <form method="post" action="@Url.Action("Book")" id="form-conditions">
+
+                <div class="form-group">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <img class="svg" src="~/assets/img/vectors/doctor-appointment.svg" />
+        </div>
+    </div>
+}

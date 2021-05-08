@@ -16,9 +16,8 @@ namespace GlobalBusiness.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParentMenuId = table.Column<int>(type: "int", nullable: true),
                     Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false),
+                    DisplayOrder = table.Column<int>(type: "int", nullable: true),
                     ElementIdentifier = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Area = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ControllerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ActionName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Visible = table.Column<bool>(type: "bit", nullable: false)
@@ -241,13 +240,18 @@ namespace GlobalBusiness.DataAccess.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetNavigationMenu",
+                columns: new[] { "Id", "ActionName", "ControllerName", "DisplayOrder", "ElementIdentifier", "Icon", "Name", "ParentMenuId", "Visible" },
+                values: new object[] { 1, null, null, 100, "auth_control", "<i class='mi'>settings</i>", "Acsess Control", null, true });
+
+            migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "29bd76db-5835-406d-ad1d-7a0901447c18", "527bb53e-788e-4282-b392-0b66cb3e95eb", "Admin", "ADMIN" },
-                    { "d7be43da-622c-4cfe-98a9-5a5161120d24", "752cceda-5f80-428a-8fe7-eb12de4219e6", "User", "USER" },
-                    { "29bd76db-5835-406d-ad1d-7a0901448abd", "cc92bfae-231f-440b-a2ba-d2f43b004fb1", "Superuser", "SUPERUSER" }
+                    { "29bd76db-5835-406d-ad1d-7a0901447c18", "ed92f0ae-9112-455e-97b6-9af26781a891", "Admin", "ADMIN" },
+                    { "d7be43da-622c-4cfe-98a9-5a5161120d24", "9382f39e-e898-4dc5-8f7d-455b3b56e991", "User", "USER" },
+                    { "29bd76db-5835-406d-ad1d-7a0901448abd", "e8a9db2e-dfe6-43cd-9c60-df239092bf69", "Superuser", "SUPERUSER" }
                 });
 
             migrationBuilder.InsertData(
@@ -255,19 +259,47 @@ namespace GlobalBusiness.DataAccess.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Avatar", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Information", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "75625814-138e-4831-a1ea-bf58e211adff", 0, "user-avatar.png", "46a82099-06e3-4b9e-be21-6f35737972f0", "Admin@Admin.com", false, "Admin", null, "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEDoDv5q+aIuigDkvnrYxuaSDDMvb51lmlgOF2UPmsbVJEtRhRvRPXXEtdA0m3y/8mw==", null, false, "077778b7-e481-4b7a-a3f6-ab12fb31f166", false, "Admin" },
-                    { "75625814-138e-4831-a1ea-bf58e211acmf", 0, "user-avatar.png", "2bf33d43-56e7-421c-8462-2f636ae4aa68", "Superuser@Superuser.com", false, "Superuser", null, "Superuser", false, null, "SUPERUSER@SUPERUSER.COM", "SUPERUSER", "AQAAAAEAACcQAAAAEG3k6xAB0dl+uQRkOvqw6rEq3XWelBUDHgJrFPBly0EplhKyvQ1tQxahpjr1oN+spw==", null, false, "a5706f94-97a7-4943-a99c-f3e4b46b7edc", false, "Superuser" }
+                    { "75625814-138e-4831-a1ea-bf58e211adff", 0, "user-avatar.png", "622ca8e2-7908-4130-bb17-82d03916ece5", "Admin@Admin.com", false, "Admin", null, "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEA7MlFk9vN4nD83DPVQ9vKQSvw3SlrbKzcD1YbtAGOchxgcjK8XkkHSbIby/cgkhzg==", null, false, "1c55b256-6aad-4822-ae6e-8aeac2786be7", false, "Admin" },
+                    { "75625814-138e-4831-a1ea-bf58e211acmf", 0, "user-avatar.png", "73074800-a7eb-48dd-a224-a88f7da282ad", "Superuser@Superuser.com", false, "Superuser", null, "Superuser", false, null, "SUPERUSER@SUPERUSER.COM", "SUPERUSER", "AQAAAAEAACcQAAAAEK44p9biaaLbyVBh0j4Bwx6o0WO6M7/MUl2B29FJFFIAmZHjXXb+iekkZ0tIamQFOg==", null, false, "b10d9ab6-2dbf-449a-8740-e6d787a97702", false, "Superuser" }
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "29bd76db-5835-406d-ad1d-7a0901447c18", "75625814-138e-4831-a1ea-bf58e211adff" });
+                table: "AspNetNavigationMenu",
+                columns: new[] { "Id", "ActionName", "ControllerName", "DisplayOrder", "ElementIdentifier", "Icon", "Name", "ParentMenuId", "Visible" },
+                values: new object[,]
+                {
+                    { 2, "Index", "Roles", null, "roles", null, "Roles", 1, true },
+                    { 3, "Create", "Roles", null, "roles", null, "Create Role", 1, false },
+                    { 4, "Edit", "Roles", null, "roles", null, "Edit Role", 1, false },
+                    { 5, "Delete", "Roles", null, "roles", null, "Delete Role", 1, false },
+                    { 6, "EditRolePermission", "Roles", null, "roles", null, "Edit Role Permission", 1, false }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoleMenuPermission",
+                columns: new[] { "NavigationMenuId", "RoleId" },
+                values: new object[] { 1, "29bd76db-5835-406d-ad1d-7a0901448abd" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "29bd76db-5835-406d-ad1d-7a0901448abd", "75625814-138e-4831-a1ea-bf58e211acmf" });
+                values: new object[,]
+                {
+                    { "29bd76db-5835-406d-ad1d-7a0901447c18", "75625814-138e-4831-a1ea-bf58e211adff" },
+                    { "29bd76db-5835-406d-ad1d-7a0901448abd", "75625814-138e-4831-a1ea-bf58e211acmf" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoleMenuPermission",
+                columns: new[] { "NavigationMenuId", "RoleId" },
+                values: new object[,]
+                {
+                    { 2, "29bd76db-5835-406d-ad1d-7a0901448abd" },
+                    { 3, "29bd76db-5835-406d-ad1d-7a0901448abd" },
+                    { 4, "29bd76db-5835-406d-ad1d-7a0901448abd" },
+                    { 5, "29bd76db-5835-406d-ad1d-7a0901448abd" },
+                    { 6, "29bd76db-5835-406d-ad1d-7a0901448abd" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetNavigationMenu_ParentMenuId",

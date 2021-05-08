@@ -10,17 +10,19 @@ using Microsoft.Extensions.Caching.Memory;
 using System.Security.Claims;
 using GlobalBusiness.Core.Entities;
 using GlobalBusiness.DataAccess.Context;
+using GlobalBusiness.Web.Areas.Management.ViewModels;
 
 namespace GlobalBusiness.Web.Helpers
 {
     public interface IRolePermissionService
     {
         Task<bool> GetMenuItemsAsync(ClaimsPrincipal ctx, string ctrl, string act);
-        Task<List<NavigationMenu>> GetMenuItemsAsync(ClaimsPrincipal principal);
-        Task<List<NavigationMenu>> GetPermissionsByRoleIdAsync(string id);
+        Task<List<NavigationMenuViewModel>> GetMenuItemsAsync(ClaimsPrincipal principal);
+        Task<List<NavigationMenuViewModel>> GetPermissionsByRoleIdAsync(string id);
         Task<bool> SetPermissionsByRoleIdAsync(string id, IEnumerable<int> permissionIds);
 
     }
+
     public class RolePermissionService : IRolePermissionService
     {
         private readonly MyDbContext _context;
@@ -32,12 +34,12 @@ namespace GlobalBusiness.Web.Helpers
             _cache = cache;
         }
 
-        public async Task<List<NavigationMenu>> GetMenuItemsAsync(ClaimsPrincipal principal)
+        public async Task<List<NavigationMenuViewModel>> GetMenuItemsAsync(ClaimsPrincipal principal)
         {
             var isAuthenticated = principal.Identity.IsAuthenticated;
             if (!isAuthenticated)
             {
-                return new List<NavigationMenu>();
+                return new List<NavigationMenuViewModel>();
             }
 
             var roleIds = await GetUserRoleIds(principal);
@@ -51,10 +53,22 @@ namespace GlobalBusiness.Web.Helpers
             var data = (from menu in rolePermissions
                         join p in permissions on menu.NavigationMenuId equals p.Id
                         where roleIds.Contains(menu.RoleId)
-                        select p).Distinct().ToList();
+                        select p)
+                              .Select(m => new NavigationMenuViewModel()
+                              {
+                                  Id = m.Id,
+                                  Name = m.Name,
+                                  Icon = m.Icon,
+                                  ElementIdentifier = m.ElementIdentifier,
+                                  Visible = m.Visible,
+                                  ActionName = m.ActionName,
+                                  DisplayOrder = m.DisplayOrder,
+                                  ParentMenuId = m.ParentMenuId,
+                                  ControllerName = m.ControllerName,
+                              }).Distinct().ToList();
 
-                return data;
-            }
+            return data;
+        }
 
         public async Task<bool> GetMenuItemsAsync(ClaimsPrincipal ctx, string ctrl, string act)
         {
@@ -79,14 +93,27 @@ namespace GlobalBusiness.Web.Helpers
             return result;
         }
 
-        public async Task<List<NavigationMenu>> GetPermissionsByRoleIdAsync(string id)
+        public async Task<List<NavigationMenuViewModel>> GetPermissionsByRoleIdAsync(string id)
         {
             var items = await (from m in _context.NavigationMenu
                                join rm in _context.RoleMenuPermission
                                 on new { X1 = m.Id, X2 = id } equals new { X1 = rm.NavigationMenuId, X2 = rm.RoleId }
                                 into rmp
                                from rm in rmp.DefaultIfEmpty()
-                               select m)
+                               select new NavigationMenuViewModel()
+                               {
+                                   Id = m.Id,
+                                   Name = m.Name,
+                                   Icon = m.Icon,
+                                   DisplayOrder = m.DisplayOrder,
+                                   ElementIdentifier = m.ElementIdentifier,
+                                   ActionName = m.ActionName,
+                                   ControllerName = m.ControllerName,
+                                   //DisplayOrder = m.DisplayOrder,
+                                   ParentMenuId = m.ParentMenuId,
+                                   Visible = m.Visible,
+                                   Permitted = rm.RoleId == id
+                               })
                                .AsNoTracking()
                                .ToListAsync();
 
@@ -130,4 +157,5 @@ namespace GlobalBusiness.Web.Helpers
             return ((ClaimsIdentity)user.Identity).FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
     }
+
 }

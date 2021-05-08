@@ -16,7 +16,7 @@ namespace GlobalBusiness.Web.Areas.Management.Controllers
 {
 
     [Area("Management")]
-    //[Authorize("Permission")]
+    [Authorize("Permission")]
     public class RolesController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -198,7 +198,7 @@ namespace GlobalBusiness.Web.Areas.Management.Controllers
 
         public async Task<IActionResult> EditRolePermission(string id)
         {
-            var permissions = new List<NavigationMenu>();
+            var permissions = new List<NavigationMenuViewModel>();
             if (!string.IsNullOrWhiteSpace(id))
             {
                 permissions = await _rolePermissionService.GetPermissionsByRoleIdAsync(id);
@@ -209,7 +209,7 @@ namespace GlobalBusiness.Web.Areas.Management.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditRolePermission(string id, List<NavigationMenu> viewModel)
+        public async Task<IActionResult> EditRolePermission(string id, List<NavigationMenuViewModel> viewModel)
         {
             if (ModelState.IsValid)
             {
