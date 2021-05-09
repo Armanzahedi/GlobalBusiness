@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using System.Threading.Tasks;
-using GlobalBusiness.Core.DefalutValues;
+using GlobalBusiness.Utilities.Models;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;

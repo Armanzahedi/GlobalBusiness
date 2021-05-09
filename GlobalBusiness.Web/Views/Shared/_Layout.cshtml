@@ -1,51 +1,49 @@
-﻿<!doctype html>
-<html lang="en" dir="ltr">
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>@ViewBag.Title | Global Business</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <!-- Material Kit CSS -->
-    <link href="~/assets/css/loader.css" rel="stylesheet" />
-    <link href="~/assets/css/client/material-kit.css" rel="stylesheet" />
-    @RenderSection("Styles", false)
-    <link href="~/assets/css/style.css" rel="stylesheet" />
-    <link href="~/assets/css/colors.css" rel="stylesheet" />
-
-
-    <!-- faveicons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png">
-    <link rel="mask-icon" href="/assets/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GlobalBusiness.Web</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body lang="en" class="client">
-    <div class="preloader">
-        <svg version="1.2" height="300" width="600" xmlns="http://www.w3.org/2000/svg"
-             viewport="0 0 60 60" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path id="pulsar" stroke="#2ca8ff" fill="none" stroke-width="5" stroke-linejoin="round" d="M0,90L250,90Q257,60 262,87T267,95 270,88 273,92t6,35 7,-60T290,127 297,107s2,-11 10,-10 1,1 8,-10T319,95c6,4 8,-6 10,-17s2,10 9,11h210" />
-        </svg>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GlobalBusiness.Web</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <partial name="_loginPartial" />
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
 
-    @RenderBody()
-
-    @RenderSection("Modals", false)
-    <!--   Core JS Files   -->
-    <script src="~/assets/js/core/jquery.min.js"></script>
-    <script src="~/assets/js/core/popper.min.js"></script>
-    <script src="~/assets/js/core/bootstrap-material-design.min.js"></script>
-
-    <script src="~/assets/js/client/material-kit.min.js"></script>
-    <script src="~/assets/js/plugins/blockui.min.js"></script>
-    <script src="~/assets/js/plugins/validate.min.js"></script>
-    <script src="~/assets/js/plugins/bootstrap-notify.js"></script>
-
-    @RenderSection("Components", false)
-<!-- /theme JS files -->
-    <script src="~/assets/js/app.js"></script>
-    @RenderSection("Scripts", false)
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - GlobalBusiness.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

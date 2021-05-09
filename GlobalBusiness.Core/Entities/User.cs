@@ -14,6 +14,11 @@ namespace GlobalBusiness.Core.Entities
         public string FirstName { get; set; }
         [MaxLength(300)]
         public string LastName { get; set; }
-        public string Information { get; set; }
+        [MaxLength(20)]
+        public string PassportNumber { get; set; }
+
+        public ICollection<ReferralLink> ReferralLinks { get; set; }
+        public ICollection<ReferralTree> ReferralTreeAsParent { get; set; }
+        public ICollection<ReferralTree> ReferralTreeAsChild { get; set; }
     }
 }

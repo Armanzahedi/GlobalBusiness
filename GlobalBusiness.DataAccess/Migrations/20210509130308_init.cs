@@ -55,7 +55,7 @@ namespace GlobalBusiness.DataAccess.Migrations
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    Information = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PassportNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -93,6 +93,33 @@ namespace GlobalBusiness.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Logs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Package",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FromPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ToPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Period = table.Column<byte>(type: "tinyint", nullable: false),
+                    TotalProfit = table.Column<double>(type: "float", nullable: false),
+                    ReferralIncome = table.Column<double>(type: "float", nullable: false),
+                    BinaryIncome = table.Column<double>(type: "float", nullable: false),
+                    CappingMonthlyLimit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AvgProfitMonth = table.Column<double>(type: "float", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    InsertDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    InsertUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdateUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Package", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -239,28 +266,89 @@ namespace GlobalBusiness.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ReferralLinks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReferralType = table.Column<int>(type: "int", nullable: false),
+                    InsertDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReferralLinks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReferralLinks_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReferralTree",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ParentNodeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ChildNodeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ReferralType = table.Column<int>(type: "int", nullable: false),
+                    InsertDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReferralTree", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ReferralTree_AspNetUsers_ChildNodeId",
+                        column: x => x.ChildNodeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ReferralTree_AspNetUsers_ParentNodeId",
+                        column: x => x.ParentNodeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetNavigationMenu",
                 columns: new[] { "Id", "ActionName", "ControllerName", "DisplayOrder", "ElementIdentifier", "Icon", "Name", "ParentMenuId", "Visible" },
-                values: new object[] { 1, null, null, 100, "auth_control", "<i class='mi'>settings</i>", "Acsess Control", null, true });
+                values: new object[] { 1, null, null, 100, "auth_control", "vpn_key", "Access Control", null, true });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "29bd76db-5835-406d-ad1d-7a0901447c18", "ed92f0ae-9112-455e-97b6-9af26781a891", "Admin", "ADMIN" },
-                    { "d7be43da-622c-4cfe-98a9-5a5161120d24", "9382f39e-e898-4dc5-8f7d-455b3b56e991", "User", "USER" },
-                    { "29bd76db-5835-406d-ad1d-7a0901448abd", "e8a9db2e-dfe6-43cd-9c60-df239092bf69", "Superuser", "SUPERUSER" }
+                    { "29bd76db-5835-406d-ad1d-7a0901447c18", "e5f87b98-9296-4643-ba8a-8fde3e07e492", "Admin", "ADMIN" },
+                    { "d7be43da-622c-4cfe-98a9-5a5161120d24", "7fd2227c-7501-43e8-b16e-0cd05697f9d2", "User", "USER" },
+                    { "29bd76db-5835-406d-ad1d-7a0901448abd", "70326d87-7a2d-4beb-9f7d-488a8a08c7af", "Superuser", "SUPERUSER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "Avatar", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "Information", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "Avatar", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PassportNumber", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "75625814-138e-4831-a1ea-bf58e211adff", 0, "user-avatar.png", "622ca8e2-7908-4130-bb17-82d03916ece5", "Admin@Admin.com", false, "Admin", null, "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEA7MlFk9vN4nD83DPVQ9vKQSvw3SlrbKzcD1YbtAGOchxgcjK8XkkHSbIby/cgkhzg==", null, false, "1c55b256-6aad-4822-ae6e-8aeac2786be7", false, "Admin" },
-                    { "75625814-138e-4831-a1ea-bf58e211acmf", 0, "user-avatar.png", "73074800-a7eb-48dd-a224-a88f7da282ad", "Superuser@Superuser.com", false, "Superuser", null, "Superuser", false, null, "SUPERUSER@SUPERUSER.COM", "SUPERUSER", "AQAAAAEAACcQAAAAEK44p9biaaLbyVBh0j4Bwx6o0WO6M7/MUl2B29FJFFIAmZHjXXb+iekkZ0tIamQFOg==", null, false, "b10d9ab6-2dbf-449a-8740-e6d787a97702", false, "Superuser" }
+                    { "75625814-138e-4831-a1ea-bf58e211adff", 0, "user-avatar.png", "a6c761ab-0e2c-4125-bd33-ca4f0eaa798b", "Admin@Admin.com", false, "Admin", "Admin", false, null, "ADMIN@ADMIN.COM", "ADMIN", null, "AQAAAAEAACcQAAAAEMXnXHgkDRpiYVJummuDH+KAAcAMN9jkyvVcjJL+PXwwD+BJq3nbgT8uKNVu47J69w==", null, false, "f35dec09-8c3a-44a2-a5aa-c44a6a9dabe5", false, "Admin" },
+                    { "75625814-138e-4831-a1ea-bf58e211acmf", 0, "user-avatar.png", "59a87a8b-9036-4092-bb5f-e1d555f48431", "Superuser@Superuser.com", false, "Superuser", "Superuser", false, null, "SUPERUSER@SUPERUSER.COM", "SUPERUSER", null, "AQAAAAEAACcQAAAAEDR+cz/7MzDjrppqfAThlLT/L9ympMG/wLF1nzvrNFZ5G8/jwLMSCV26Pa8ESElNXQ==", null, false, "ef285669-e586-4f4e-97d4-f456e13ade95", false, "Superuser" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Package",
+                columns: new[] { "Id", "AvgProfitMonth", "BinaryIncome", "CappingMonthlyLimit", "Description", "FromPrice", "InsertDate", "InsertUser", "IsDeleted", "Name", "Period", "ReferralIncome", "ToPrice", "TotalProfit", "UpdateDate", "UpdateUser" },
+                values: new object[,]
+                {
+                    { 1, 15.73, 10.0, 5000m, "an appropriate opportunity for beginners starting their own business.Find suitable investment with Basic.", 100.00m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, "Moon", (byte)24, 7.0, 999.00m, 200.0, null, null },
+                    { 2, 18.899999999999999, 10.0, 10000m, "for those who have experienced investing before and have started a new way towards a more prosperous investment.", 1000.00m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, "Earth", (byte)24, 8.0, 9999.00m, 220.0, null, null },
+                    { 3, 22.030000000000001, 10.0, 20000m, "an appropriate chance for more profits with more potential facilities.", 10000.00m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, "Sun", (byte)24, 9.0, 24999.00m, 240.0, null, null },
+                    { 4, 25.170000000000002, 10.0, 999999999m, "the last package and the best choice for a worthwhile investment.", 25000.00m, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, "Star", (byte)24, 10.0, -1m, 260.0, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -287,6 +375,17 @@ namespace GlobalBusiness.DataAccess.Migrations
                 {
                     { "29bd76db-5835-406d-ad1d-7a0901447c18", "75625814-138e-4831-a1ea-bf58e211adff" },
                     { "29bd76db-5835-406d-ad1d-7a0901448abd", "75625814-138e-4831-a1ea-bf58e211acmf" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ReferralLinks",
+                columns: new[] { "Id", "InsertDate", "IsDeleted", "Link", "ReferralType", "UserId" },
+                values: new object[,]
+                {
+                    { 3, new DateTime(2021, 5, 9, 17, 33, 6, 934, DateTimeKind.Local).AddTicks(571), false, "29bd76db", 1, "75625814-138e-4831-a1ea-bf58e211adff" },
+                    { 4, new DateTime(2021, 5, 9, 17, 33, 6, 934, DateTimeKind.Local).AddTicks(590), false, "91tm83ps", 2, "75625814-138e-4831-a1ea-bf58e211adff" },
+                    { 1, new DateTime(2021, 5, 9, 17, 33, 6, 930, DateTimeKind.Local).AddTicks(1689), false, "23ad82tw", 1, "75625814-138e-4831-a1ea-bf58e211acmf" },
+                    { 2, new DateTime(2021, 5, 9, 17, 33, 6, 934, DateTimeKind.Local).AddTicks(502), false, "65gh72tn", 2, "75625814-138e-4831-a1ea-bf58e211acmf" }
                 });
 
             migrationBuilder.InsertData(
@@ -349,6 +448,21 @@ namespace GlobalBusiness.DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReferralLinks_UserId",
+                table: "ReferralLinks",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReferralTree_ChildNodeId",
+                table: "ReferralTree",
+                column: "ChildNodeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReferralTree_ParentNodeId",
+                table: "ReferralTree",
+                column: "ParentNodeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -373,6 +487,15 @@ namespace GlobalBusiness.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Logs");
+
+            migrationBuilder.DropTable(
+                name: "Package");
+
+            migrationBuilder.DropTable(
+                name: "ReferralLinks");
+
+            migrationBuilder.DropTable(
+                name: "ReferralTree");
 
             migrationBuilder.DropTable(
                 name: "SystemParameters");

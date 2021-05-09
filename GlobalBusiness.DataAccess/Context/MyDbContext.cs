@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Mime;
 using System.Text;
 using GlobalBusiness.Core.Entities;
-using GlobalBusiness.DataAccess.Seed;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -19,12 +18,27 @@ namespace GlobalBusiness.DataAccess.Context
         public DbSet<Log> Logs { get; set; }
         public DbSet<NavigationMenu> NavigationMenu { get; set; }
         public DbSet<RoleMenuPermission> RoleMenuPermission { get; set; }
+        public DbSet<ReferralLink> ReferralLinks { get; set; }
+        public DbSet<ReferralTree> ReferralTree { get; set; }
                 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RoleMenuPermission>()
             .HasKey(c => new { c.RoleId, c.NavigationMenuId });
+
+            modelBuilder.Entity<ReferralTree>()
+                .HasOne(n => n.ParentNode)
+                .WithMany(m => m.ReferralTreeAsParent)
+                .HasForeignKey(n => n.ParentNodeId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+            modelBuilder.Entity<ReferralTree>()
+                .HasOne(n => n.ChildNode)
+                .WithMany(m => m.ReferralTreeAsChild)
+                .HasForeignKey(n => n.ChildNodeId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Seed();
             base.OnModelCreating(modelBuilder);

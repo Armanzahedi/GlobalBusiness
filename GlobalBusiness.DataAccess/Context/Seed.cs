@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using GlobalBusiness.Core.Entities;
 using GlobalBusiness.DataAccess.Context;
+using GlobalBusiness.DataAccess.Repositories;
+using GlobalBusiness.Utilities.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace GlobalBusiness.DataAccess.Seed
+namespace GlobalBusiness.DataAccess.Context
 {
     public static class ModelBuilderExtensions
     {
@@ -50,9 +52,47 @@ namespace GlobalBusiness.DataAccess.Seed
                 admin,
                 superuser
             );
-
             #endregion
-
+            #region Seed ReferralLinks
+            var SUPER_USER_REFERRAL_LINK_LEFT = "23ad82tw";
+            var SUPER_USER_REFERRAL_LINK_RIGHT = "65gh72tn";
+            var ADMIN_REFERRAL_LINK_LEFT = "29bd76db";
+            var ADMIN_REFERRAL_LINK_RIGHT = "91tm83ps";
+            modelBuilder.Entity<ReferralLink>().HasData(
+                new ReferralLink
+                {
+                    Id = 1,
+                    UserId = SUPER_USER_ID,
+                    Link = SUPER_USER_REFERRAL_LINK_LEFT,
+                    ReferralType = ReferralType.LeftWing,
+                    InsertDate = DateTime.Now
+                },
+                new ReferralLink
+                {
+                    Id = 2,
+                    UserId = SUPER_USER_ID,
+                    Link = SUPER_USER_REFERRAL_LINK_RIGHT,
+                    ReferralType = ReferralType.RightWing,
+                    InsertDate = DateTime.Now
+                },
+                new ReferralLink
+                {
+                    Id = 3,
+                    UserId = ADMIN_ID,
+                    Link = ADMIN_REFERRAL_LINK_LEFT,
+                    ReferralType = ReferralType.LeftWing,
+                    InsertDate = DateTime.Now
+                },
+                new ReferralLink
+                {
+                    Id = 4,
+                    UserId = ADMIN_ID,
+                    Link = ADMIN_REFERRAL_LINK_RIGHT,
+                    ReferralType = ReferralType.RightWing,
+                    InsertDate = DateTime.Now
+                }
+            );
+            #endregion
             #region Seed Roles
 
             var SUPER_USER_ROLE_ID = "29bd76db-5835-406d-ad1d-7a0901448abd";
@@ -75,71 +115,79 @@ namespace GlobalBusiness.DataAccess.Seed
 
             #endregion
 
-            #region Seed Navigation menue
-
-            #endregion
-
+            #region Seed Navigation menu
             modelBuilder.Entity<NavigationMenu>().HasData(
-                new NavigationMenu()
-                {
-                    Id = 1,
-                    Name = "Acsess Control",
-                    ElementIdentifier = "auth_control",
-                    Icon = "<i class='mi'>vpn_key</ i>",
-                    DisplayOrder = 100,
-                    Visible = true,
-                },
-                new NavigationMenu()
-                {
-                    Id = 2,
-                    ParentMenuId = 1,
-                    Name = "Roles",
-                    ControllerName = "Roles",
-                    ActionName = "Index",
-                    ElementIdentifier = "roles",
-                    Visible = true,
-                },
-                new NavigationMenu()
-                {
-                    Id = 3,
-                    ParentMenuId = 1,
-                    ControllerName = "Roles",
-                    ActionName = "Create",
-                    Name = "Create Role",
-                    ElementIdentifier = "roles",
-                    Visible = false,
-                },
-                new NavigationMenu()
-                {
-                    Id = 4,
-                    ParentMenuId = 1,
-                    ControllerName = "Roles",
-                    ActionName = "Edit",
-                    Name = "Edit Role",
-                    ElementIdentifier = "roles",
-                    Visible = false,
-                },
-                new NavigationMenu()
-                {
-                    Id = 5,
-                    ParentMenuId = 1,
-                    ControllerName = "Roles",
-                    ActionName = "Delete",
-                    Name = "Delete Role",
-                    ElementIdentifier = "roles",
-                    Visible = false,
-                },
-                new NavigationMenu()
-                {
-                    Id = 6,
-                    ParentMenuId = 1,
-                    ControllerName = "Roles",
-                    ActionName = "EditRolePermission",
-                    Name = "Edit Role Permission",
-                    ElementIdentifier = "roles",
-                    Visible = false,
-                }
-                );
+            new NavigationMenu()
+            {
+                Id = 1,
+                Name = "Access Control",
+                ElementIdentifier = "auth_control",
+                Icon = "vpn_key",
+                DisplayOrder = 100,
+                Visible = true,
+            },
+            new NavigationMenu()
+            {
+                Id = 2,
+                ParentMenuId = 1,
+                Name = "Roles",
+                ControllerName = "Roles",
+                ActionName = "Index",
+                ElementIdentifier = "roles",
+                Visible = true,
+            },
+            new NavigationMenu()
+            {
+                Id = 3,
+                ParentMenuId = 1,
+                ControllerName = "Roles",
+                ActionName = "Create",
+                Name = "Create Role",
+                ElementIdentifier = "roles",
+                Visible = false,
+            },
+            new NavigationMenu()
+            {
+                Id = 4,
+                ParentMenuId = 1,
+                ControllerName = "Roles",
+                ActionName = "Edit",
+                Name = "Edit Role",
+                ElementIdentifier = "roles",
+                Visible = false,
+            },
+            new NavigationMenu()
+            {
+                Id = 5,
+                ParentMenuId = 1,
+                ControllerName = "Roles",
+                ActionName = "Delete",
+                Name = "Delete Role",
+                ElementIdentifier = "roles",
+                Visible = false,
+            },
+            new NavigationMenu()
+            {
+                Id = 6,
+                ParentMenuId = 1,
+                ControllerName = "Roles",
+                ActionName = "EditRolePermission",
+                Name = "Edit Role Permission",
+                ElementIdentifier = "roles",
+                Visible = false,
+            },
+            new NavigationMenu()
+            {
+                Id = 7,
+                ControllerName = "Dashboard",
+                ActionName = "MyProfile",
+                Name = "My Profile",
+                ElementIdentifier = "profile",
+                DisplayOrder = 1,
+                Visible = true,
+            }
+            );
+
             modelBuilder.Entity<RoleMenuPermission>().HasData(
                 new RoleMenuPermission()
                 {
@@ -153,55 +201,90 @@ namespace GlobalBusiness.DataAccess.Seed
                 },
                 new RoleMenuPermission()
                 {
-                RoleId = SUPER_USER_ROLE_ID,
-                NavigationMenuId = 3
+                    RoleId = SUPER_USER_ROLE_ID,
+                    NavigationMenuId = 3
                 }
-                , new RoleMenuPermission()
+                ,
+                new RoleMenuPermission()
                 {
                     RoleId = SUPER_USER_ROLE_ID,
                     NavigationMenuId = 4
-                }, new RoleMenuPermission()
+                },
+                new RoleMenuPermission()
                 {
                     RoleId = SUPER_USER_ROLE_ID,
                     NavigationMenuId = 5
-                }, new RoleMenuPermission()
+                },
+                new RoleMenuPermission()
                 {
                     RoleId = SUPER_USER_ROLE_ID,
                     NavigationMenuId = 6
                 }
                 );
+            #endregion
 
-            //new NavigationMenu()
-            //{
-            //    Id = new Guid("913BF559-DB46-4072-BD01-F73F3C92E5D5"),
-            //    Name = "Create Role",
-            //    ControllerName = "Admin",
-            //    ActionName = "CreateRole",
-            //    ParentMenuId = new Guid("13e2f21a-4283-4ff8-bb7a-096e7b89e0f0"),
-            //    DisplayOrder = 3,
-            //    Visible = true,
-            //},
-            //new NavigationMenu()
-            //{
-            //    Id = new Guid("3C1702C5-C34F-4468-B807-3A1D5545F734"),
-            //    Name = "Edit User",
-            //    ControllerName = "Admin",
-            //    ActionName = "EditUser",
-            //    ParentMenuId = new Guid("13e2f21a-4283-4ff8-bb7a-096e7b89e0f0"),
-            //    DisplayOrder = 3,
-            //    Visible = false,
-            //},
-            //new NavigationMenu()
-            //{
-            //    Id = new Guid("94C22F11-6DD2-4B9C-95F7-9DD4EA1002E6"),
-            //    Name = "Edit Role Permission",
-            //    ControllerName = "Admin",
-            //    ActionName = "EditRolePermission",
-            //    ParentMenuId = new Guid("13e2f21a-4283-4ff8-bb7a-096e7b89e0f0"),
-            //    DisplayOrder = 3,
-            //    Visible = false,
-            //}
-            //);
+            #region Seed Packages
+
+            modelBuilder.Entity<Package>().HasData(
+                new Package 
+                {
+                    Id = 1,
+                    Name = "Moon",
+                    Period = 24,
+                    TotalProfit = 200,
+                    ReferralIncome = 7,
+                    BinaryIncome = 10,
+                    CappingMonthlyLimit = 5000,
+                    AvgProfitMonth = 15.73,
+                    Description = @"an appropriate opportunity for beginners starting their own business.Find suitable investment with Basic.",
+                    FromPrice = 100.00m,
+                    ToPrice = 999.00m,
+                },
+                new Package
+                {
+                    Id = 2,
+                    Name = "Earth",
+                    Period = 24,
+                    TotalProfit = 220,
+                    ReferralIncome = 8,
+                    BinaryIncome = 10,
+                    CappingMonthlyLimit = 10000,
+                    AvgProfitMonth = 18.9,
+                    Description = @"for those who have experienced investing before and have started a new way towards a more prosperous investment.",
+                    FromPrice = 1000.00m,
+                    ToPrice = 9999.00m,
+                },
+                new Package
+                {
+                    Id = 3,
+                    Name = "Sun",
+                    Period = 24,
+                    TotalProfit = 240,
+                    ReferralIncome = 9,
+                    BinaryIncome = 10,
+                    CappingMonthlyLimit = 20000,
+                    AvgProfitMonth = 22.03,
+                    Description = @"an appropriate chance for more profits with more potential facilities.",
+                    FromPrice = 10000.00m,
+                    ToPrice = 24999.00m,
+                },
+                new Package
+                {
+                    Id = 4,
+                    Name = "Star",
+                    Period = 24,
+                    TotalProfit = 260,
+                    ReferralIncome = 10,
+                    BinaryIncome = 10,
+                    CappingMonthlyLimit = 999999999,
+                    AvgProfitMonth = 25.17,
+                    Description = @"the last package and the best choice for a worthwhile investment.",
+                    FromPrice = 25000.00m,
+                    ToPrice = -1,
+                }
+            );
+
+            #endregion
 
         }
         public static string GetHashedPassword(User user, string password)

@@ -98,8 +98,8 @@ namespace GlobalBusiness.DataAccess.Migrations
                             Id = 1,
                             DisplayOrder = 100,
                             ElementIdentifier = "auth_control",
-                            Icon = "<i class='mi'>settings</i>",
-                            Name = "Acsess Control",
+                            Icon = "vpn_key",
+                            Name = "Access Control",
                             Visible = true
                         },
                         new
@@ -152,6 +152,228 @@ namespace GlobalBusiness.DataAccess.Migrations
                             ParentMenuId = 1,
                             Visible = false
                         });
+                });
+
+            modelBuilder.Entity("GlobalBusiness.Core.Entities.Package", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<double>("AvgProfitMonth")
+                        .HasColumnType("float");
+
+                    b.Property<double>("BinaryIncome")
+                        .HasColumnType("float");
+
+                    b.Property<decimal>("CappingMonthlyLimit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("FromPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InsertUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("Period")
+                        .HasColumnType("tinyint");
+
+                    b.Property<double>("ReferralIncome")
+                        .HasColumnType("float");
+
+                    b.Property<decimal>("ToPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<double>("TotalProfit")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdateUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Package");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvgProfitMonth = 15.73,
+                            BinaryIncome = 10.0,
+                            CappingMonthlyLimit = 5000m,
+                            Description = "an appropriate opportunity for beginners starting their own business.Find suitable investment with Basic.",
+                            FromPrice = 100.00m,
+                            InsertDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Moon",
+                            Period = (byte)24,
+                            ReferralIncome = 7.0,
+                            ToPrice = 999.00m,
+                            TotalProfit = 200.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvgProfitMonth = 18.899999999999999,
+                            BinaryIncome = 10.0,
+                            CappingMonthlyLimit = 10000m,
+                            Description = "for those who have experienced investing before and have started a new way towards a more prosperous investment.",
+                            FromPrice = 1000.00m,
+                            InsertDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Earth",
+                            Period = (byte)24,
+                            ReferralIncome = 8.0,
+                            ToPrice = 9999.00m,
+                            TotalProfit = 220.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AvgProfitMonth = 22.030000000000001,
+                            BinaryIncome = 10.0,
+                            CappingMonthlyLimit = 20000m,
+                            Description = "an appropriate chance for more profits with more potential facilities.",
+                            FromPrice = 10000.00m,
+                            InsertDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Sun",
+                            Period = (byte)24,
+                            ReferralIncome = 9.0,
+                            ToPrice = 24999.00m,
+                            TotalProfit = 240.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AvgProfitMonth = 25.170000000000002,
+                            BinaryIncome = 10.0,
+                            CappingMonthlyLimit = 999999999m,
+                            Description = "the last package and the best choice for a worthwhile investment.",
+                            FromPrice = 25000.00m,
+                            InsertDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Star",
+                            Period = (byte)24,
+                            ReferralIncome = 10.0,
+                            ToPrice = -1m,
+                            TotalProfit = 260.0
+                        });
+                });
+
+            modelBuilder.Entity("GlobalBusiness.Core.Entities.ReferralLink", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Link")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ReferralType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ReferralLinks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            InsertDate = new DateTime(2021, 5, 9, 17, 33, 6, 930, DateTimeKind.Local).AddTicks(1689),
+                            IsDeleted = false,
+                            Link = "23ad82tw",
+                            ReferralType = 1,
+                            UserId = "75625814-138e-4831-a1ea-bf58e211acmf"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            InsertDate = new DateTime(2021, 5, 9, 17, 33, 6, 934, DateTimeKind.Local).AddTicks(502),
+                            IsDeleted = false,
+                            Link = "65gh72tn",
+                            ReferralType = 2,
+                            UserId = "75625814-138e-4831-a1ea-bf58e211acmf"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            InsertDate = new DateTime(2021, 5, 9, 17, 33, 6, 934, DateTimeKind.Local).AddTicks(571),
+                            IsDeleted = false,
+                            Link = "29bd76db",
+                            ReferralType = 1,
+                            UserId = "75625814-138e-4831-a1ea-bf58e211adff"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            InsertDate = new DateTime(2021, 5, 9, 17, 33, 6, 934, DateTimeKind.Local).AddTicks(590),
+                            IsDeleted = false,
+                            Link = "91tm83ps",
+                            ReferralType = 2,
+                            UserId = "75625814-138e-4831-a1ea-bf58e211adff"
+                        });
+                });
+
+            modelBuilder.Entity("GlobalBusiness.Core.Entities.ReferralTree", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ChildNodeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("InsertDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ParentNodeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ReferralType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChildNodeId");
+
+                    b.HasIndex("ParentNodeId");
+
+                    b.ToTable("ReferralTree");
                 });
 
             modelBuilder.Entity("GlobalBusiness.Core.Entities.RoleMenuPermission", b =>
@@ -265,9 +487,6 @@ namespace GlobalBusiness.DataAccess.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<string>("Information")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastName")
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
@@ -285,6 +504,10 @@ namespace GlobalBusiness.DataAccess.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PassportNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -323,7 +546,7 @@ namespace GlobalBusiness.DataAccess.Migrations
                             Id = "75625814-138e-4831-a1ea-bf58e211adff",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "622ca8e2-7908-4130-bb17-82d03916ece5",
+                            ConcurrencyStamp = "a6c761ab-0e2c-4125-bd33-ca4f0eaa798b",
                             Email = "Admin@Admin.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -331,9 +554,9 @@ namespace GlobalBusiness.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA7MlFk9vN4nD83DPVQ9vKQSvw3SlrbKzcD1YbtAGOchxgcjK8XkkHSbIby/cgkhzg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMXnXHgkDRpiYVJummuDH+KAAcAMN9jkyvVcjJL+PXwwD+BJq3nbgT8uKNVu47J69w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1c55b256-6aad-4822-ae6e-8aeac2786be7",
+                            SecurityStamp = "f35dec09-8c3a-44a2-a5aa-c44a6a9dabe5",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -342,7 +565,7 @@ namespace GlobalBusiness.DataAccess.Migrations
                             Id = "75625814-138e-4831-a1ea-bf58e211acmf",
                             AccessFailedCount = 0,
                             Avatar = "user-avatar.png",
-                            ConcurrencyStamp = "73074800-a7eb-48dd-a224-a88f7da282ad",
+                            ConcurrencyStamp = "59a87a8b-9036-4092-bb5f-e1d555f48431",
                             Email = "Superuser@Superuser.com",
                             EmailConfirmed = false,
                             FirstName = "Superuser",
@@ -350,9 +573,9 @@ namespace GlobalBusiness.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "SUPERUSER@SUPERUSER.COM",
                             NormalizedUserName = "SUPERUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK44p9biaaLbyVBh0j4Bwx6o0WO6M7/MUl2B29FJFFIAmZHjXXb+iekkZ0tIamQFOg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDR+cz/7MzDjrppqfAThlLT/L9ympMG/wLF1nzvrNFZ5G8/jwLMSCV26Pa8ESElNXQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b10d9ab6-2dbf-449a-8740-e6d787a97702",
+                            SecurityStamp = "ef285669-e586-4f4e-97d4-f456e13ade95",
                             TwoFactorEnabled = false,
                             UserName = "Superuser"
                         });
@@ -388,21 +611,21 @@ namespace GlobalBusiness.DataAccess.Migrations
                         new
                         {
                             Id = "29bd76db-5835-406d-ad1d-7a0901447c18",
-                            ConcurrencyStamp = "ed92f0ae-9112-455e-97b6-9af26781a891",
+                            ConcurrencyStamp = "e5f87b98-9296-4643-ba8a-8fde3e07e492",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "d7be43da-622c-4cfe-98a9-5a5161120d24",
-                            ConcurrencyStamp = "9382f39e-e898-4dc5-8f7d-455b3b56e991",
+                            ConcurrencyStamp = "7fd2227c-7501-43e8-b16e-0cd05697f9d2",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "29bd76db-5835-406d-ad1d-7a0901448abd",
-                            ConcurrencyStamp = "e8a9db2e-dfe6-43cd-9c60-df239092bf69",
+                            ConcurrencyStamp = "70326d87-7a2d-4beb-9f7d-488a8a08c7af",
                             Name = "Superuser",
                             NormalizedName = "SUPERUSER"
                         });
@@ -533,6 +756,32 @@ namespace GlobalBusiness.DataAccess.Migrations
                     b.Navigation("ParentNavigationMenu");
                 });
 
+            modelBuilder.Entity("GlobalBusiness.Core.Entities.ReferralLink", b =>
+                {
+                    b.HasOne("GlobalBusiness.Core.Entities.User", "User")
+                        .WithMany("ReferralLinks")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GlobalBusiness.Core.Entities.ReferralTree", b =>
+                {
+                    b.HasOne("GlobalBusiness.Core.Entities.User", "ChildNode")
+                        .WithMany("ReferralTreeAsChild")
+                        .HasForeignKey("ChildNodeId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("GlobalBusiness.Core.Entities.User", "ParentNode")
+                        .WithMany("ReferralTreeAsParent")
+                        .HasForeignKey("ParentNodeId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("ChildNode");
+
+                    b.Navigation("ParentNode");
+                });
+
             modelBuilder.Entity("GlobalBusiness.Core.Entities.RoleMenuPermission", b =>
                 {
                     b.HasOne("GlobalBusiness.Core.Entities.NavigationMenu", "NavigationMenu")
@@ -593,6 +842,15 @@ namespace GlobalBusiness.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GlobalBusiness.Core.Entities.User", b =>
+                {
+                    b.Navigation("ReferralLinks");
+
+                    b.Navigation("ReferralTreeAsChild");
+
+                    b.Navigation("ReferralTreeAsParent");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalBusiness.Web", "GlobalBusiness.Web\GlobalBusiness.Web.csproj", "{BA7F1719-B5B0-49DA-A97B-A15E5A6ABF2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalBusiness.Web", "GlobalBusiness.Web\GlobalBusiness.Web.csproj", "{BA7F1719-B5B0-49DA-A97B-A15E5A6ABF2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalBusiness.Core", "GlobalBusiness.Core\GlobalBusiness.Core.csproj", "{669DE4F8-6E8A-4BE2-A477-F04F7BDDF788}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalBusiness.Core", "GlobalBusiness.Core\GlobalBusiness.Core.csproj", "{669DE4F8-6E8A-4BE2-A477-F04F7BDDF788}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalBusiness.DataAccess", "GlobalBusiness.DataAccess\GlobalBusiness.DataAccess.csproj", "{19E8BF0F-FA9B-4806-8D35-05CD3E151E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalBusiness.DataAccess", "GlobalBusiness.DataAccess\GlobalBusiness.DataAccess.csproj", "{19E8BF0F-FA9B-4806-8D35-05CD3E151E0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalBusiness.Infrastructure", "GlobalBusiness.Infrastructure\GlobalBusiness.Infrastructure.csproj", "{4C82E243-64F7-45B7-8B2F-889883B0F2C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalBusiness.Infrastructure", "GlobalBusiness.Infrastructure\GlobalBusiness.Infrastructure.csproj", "{4C82E243-64F7-45B7-8B2F-889883B0F2C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalBusiness.Utilities", "GlobalBusiness.Utilities\GlobalBusiness.Utilities.csproj", "{601DC519-49BC-4CF2-9F09-604A16B14031}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{4C82E243-64F7-45B7-8B2F-889883B0F2C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C82E243-64F7-45B7-8B2F-889883B0F2C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C82E243-64F7-45B7-8B2F-889883B0F2C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{601DC519-49BC-4CF2-9F09-604A16B14031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{601DC519-49BC-4CF2-9F09-604A16B14031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{601DC519-49BC-4CF2-9F09-604A16B14031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{601DC519-49BC-4CF2-9F09-604A16B14031}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
