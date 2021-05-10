@@ -1,0 +1,23 @@
+﻿@using GlobalBusiness.Infrastructure.ExtensionMethods
+@using GlobalBusiness.Utilities.Enums
+@model GlobalBusiness.Core.Entities.ReferralLink
+
+<input type="hidden" id="title" value="Referral Link" />
+<div class="modal-body">
+    @if (Model.ReferralType == ReferralType.LeftWing)
+    {
+        <h3 class="text-center">Your left link</h3>
+    }
+    else
+    {
+        <h3 class="text-center">Your right link</h3>
+    }
+    <div class="input-group">
+        <input type="text" class="form-control text-light" id="input-link-@Model.Link" value="@Url.AbsoluteAction("Register","Auth",new {area = "",@ref = @Model.Link})" data-user="@User.Identity.Name" readonly />
+        <div class="input-group-append border-0">
+            <div class="btn btn-copy btn-info input-group-text m-0 p-0 px-2" onclick="copy(this,'input-link-@Model.Link')" title="Copy Link" data-toggle="tooltip">
+                <i class="mi">content_copy</i>
+            </div>
+        </div>
+    </div>
+</div>  

@@ -1,0 +1,193 @@
+﻿@model GlobalBusiness.Infrastructure.DTOs.Auth.RegisterDto
+@{
+    ViewData["Title"] = "Register";
+    Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+}
+
+<div class="wrapper wrapper-full-page ">
+    <div class="full-page register-page">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+                    <div class="m-auto">
+                        <div class="card card-register card-white">
+                            <form id="form-auth" class="form" method="post" >
+                                <input type="hidden" value="@ViewBag.ReferralToken" name="ReferralCode" />
+
+                                <div class="card-header">
+                                    <img class="card-img" src="~/management/img/card/card-gold.png" />
+                                    <h4 class="card-title">Register</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card card-white mb-5">
+                                        <div class="card-body">
+                                            <h4 class="text-dark">Your parent node</h4>
+                                            <div class="d-md-flex justify-content-between">
+                                                <div>
+                                                    <img class="img img-raised rounded-circle" style="max-width:60px" src="@Model.ParentNode.Image" />
+                                                    <span class="ml-3 align-self-center">@Model.ParentNode.Name</span>
+                                                </div>
+                                                @*<div class="d-flex">
+                                                    <a href="javascript:void(0)" class="btn btn-simple btn-sm border-0 text-danger align-self-center"><small>Something's wrong?</small></a>
+                                                </div>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group has-label">
+                                                <label asp-for="Firstname"></label>*
+                                                <input asp-for="Firstname" class="form-control" placeholder="Firstname" autocomplete="off" />
+                                                <span asp-validation-for="Firstname" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group has-label">
+                                                <label asp-for="Lastname"></label>*
+                                                <input asp-for="Lastname" class="form-control" placeholder="Lastname" autocomplete="off" />
+                                                <span asp-validation-for="Lastname" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Email"></label>*
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="mi">email</i>
+                                                        </div>
+                                                    </div>
+                                                    <input asp-for="Email" class="form-control" placeholder="Email" autocomplete="off" />
+                                                </div>
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="PassportNumber"></label>*
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="mi">language</i>
+                                                        </div>
+                                                    </div>
+                                                    <input asp-for="PassportNumber" class="form-control" placeholder="Email" autocomplete="off" />
+                                                </div>
+                                                <span asp-validation-for="PassportNumber" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="Password"></label>*
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="mi">lock</i>
+                                                        </div>
+                                                    </div>
+                                                    <input asp-for="Password" class="form-control" placeholder="Email" autocomplete="off" />
+                                                </div>
+                                                <span asp-validation-for="Password" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label asp-for="ConfirmPassword"></label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="mi">replay</i>
+                                                        </div>
+                                                    </div>
+                                                    <input asp-for="ConfirmPassword" class="form-control" placeholder="Email" autocomplete="off" />
+                                                </div>
+                                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check text-left">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" asp-for="AgreedToTerms" type="checkbox">
+                                            <span class="form-check-sign"></span>
+                                            I agree to the
+                                            <a href="javascript:void(0)">terms and conditions</a>.
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="card-footer mt-0">
+                                    <button class="btn btn-gold btn-round btn-lg" type="submit">Get Started</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <h4>Create a new account.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h4>Use another service to register.</h4>
+            <hr />-->
+@*@{
+        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+        {
+            <div>
+                <p>
+                    There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                    for details on setting up this ASP.NET application to support logging in via external services.
+                </p>
+            </div>
+        }
+        else
+        {
+            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                <div>
+                    <p>
+                        @foreach (var provider in Model.ExternalLogins)
+                        {
+                            <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                        }
+                    </p>
+                </div>
+            </form>
+        }
+    }*@
+<!--</section>
+    </div>
+</div>-->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

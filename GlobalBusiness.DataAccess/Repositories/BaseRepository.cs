@@ -8,6 +8,7 @@ using GlobalBusiness.DataAccess.Context;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using AppContext = GlobalBusiness.Core.Helpers.AppContext;
 
 namespace GlobalBusiness.DataAccess.Repositories
 {
@@ -29,13 +30,11 @@ namespace GlobalBusiness.DataAccess.Repositories
         where T : class, IBaseEntity
     {
         private readonly MyDbContext _context;
-        private readonly HttpContextAccessor _httpContext;
         private readonly ILogRepository _logger;
         public BaseRepository(MyDbContext context, ILogRepository logger)
         {
             _context = context;
             _logger = logger;
-            _httpContext ??= new HttpContextAccessor();
         }
         public async Task<List<T>> GetAll()
         {
@@ -142,9 +141,9 @@ namespace GlobalBusiness.DataAccess.Repositories
         private string GetCurrentUsersName()
         {
             var userName = "";
-            if (_httpContext?.HttpContext?.User?.Identity?.Name != null)
+            if (AppContext.Current?.User?.Identity?.Name != null)
             {
-                userName = _httpContext.HttpContext.User.Identity.Name;
+                userName = AppContext.Current.User.Identity.Name;
             }
             return userName;
         }

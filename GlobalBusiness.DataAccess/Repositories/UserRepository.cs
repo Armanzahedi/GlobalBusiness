@@ -12,6 +12,7 @@ namespace GlobalBusiness.DataAccess.Repositories
     public interface IUserRepository
     {
         Task<User> GetById(string id);
+        Task<User> GetByReferralLink(string referralLink);
         Task<User> Add(User entity);
         Task<User> Update(User entity);
     }
@@ -28,6 +29,14 @@ namespace GlobalBusiness.DataAccess.Repositories
         {
             return await _context.Users.FindAsync(id);
         }
+
+        public async Task<User> GetByReferralLink(string referralLink)
+        {
+            var refLink = await _context.ReferralLinks.Include(l=>l.User).FirstOrDefaultAsync(l => l.Link == referralLink);
+
+            return refLink?.User;
+        }
+
         public async Task<User> Add(User entity)
         {
             _context.Users.Add(entity);

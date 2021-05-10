@@ -17,6 +17,8 @@ namespace GlobalBusiness.Core.Entities
         [MaxLength(20)]
         public string PassportNumber { get; set; }
 
+        public bool  IsDeleted { get; set; }
+
         public ICollection<ReferralLink> ReferralLinks { get; set; }
         public ICollection<ReferralTree> ReferralTreeAsParent { get; set; }
         public ICollection<ReferralTree> ReferralTreeAsChild { get; set; }

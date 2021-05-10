@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using GlobalBusiness.Core.Entities;
 using GlobalBusiness.DataAccess.Context;
 using Microsoft.AspNetCore.Http;
+using AppContext = GlobalBusiness.Core.Helpers.AppContext;
 
 namespace GlobalBusiness.DataAccess.Repositories
 {
@@ -13,15 +14,13 @@ namespace GlobalBusiness.DataAccess.Repositories
     {
         Task<Log> LogEvent(string TableName, int id, string Action);
     }
-    public class LogsRepository
+    public class LogRepository : ILogRepository
     {
         private readonly MyDbContext _context;
-        private readonly HttpContextAccessor _httpContext;
 
-        public LogsRepository(MyDbContext context, HttpContextAccessor httpContext)
+        public LogRepository(MyDbContext context)
         {
             _context = context;
-            _httpContext = httpContext;
         }
         public async Task<Log> LogEvent(string TableName, int id, string Action)
         {
@@ -39,9 +38,9 @@ namespace GlobalBusiness.DataAccess.Repositories
         private string GetCurrentUsersName()
         {
             var userName = "";
-            if (_httpContext?.HttpContext?.User?.Identity?.Name != null)
+            if (AppContext.Current?.User?.Identity?.Name != null)
             {
-                userName = _httpContext.HttpContext.User.Identity.Name;
+                userName = AppContext.Current.User.Identity.Name;
             }
             return userName;
         }

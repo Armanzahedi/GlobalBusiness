@@ -13,7 +13,9 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Threading.Tasks;
 using GlobalBusiness.Core.Entities;
+using GlobalBusiness.DataAccess;
 using GlobalBusiness.DataAccess.Context;
+using GlobalBusiness.Infrastructure;
 using GlobalBusiness.Infrastructure.Helpers;
 using GlobalBusiness.Infrastructure.MiddleWares;
 using GlobalBusiness.Utilities.Models;
@@ -44,7 +46,6 @@ namespace GlobalBusiness.Web
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
-
             services.AddIdentity<User, IdentityRole>()
             .AddEntityFrameworkStores<MyDbContext>()
             .AddDefaultTokenProviders()
@@ -58,8 +59,9 @@ namespace GlobalBusiness.Web
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("GlobalBusiness.DataAccess"));
             }, ServiceLifetime.Transient);
-            //services.AddDataAccess();
-            //services.AddInfrastructure();
+            services.AddHttpContextAccessor();
+            services.AddDataAccess();
+            services.AddInfrastructure();
             services.AddSingleton<IEmailSender, EmailSender>();
             //ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("fa");
 
@@ -106,6 +108,7 @@ namespace GlobalBusiness.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            Core.Helpers.AppContext.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles(new StaticFileOptions

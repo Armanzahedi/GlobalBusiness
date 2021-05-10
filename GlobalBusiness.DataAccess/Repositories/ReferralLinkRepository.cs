@@ -9,6 +9,7 @@ using GlobalBusiness.Utilities.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using AppContext = GlobalBusiness.Core.Helpers.AppContext;
 
 namespace GlobalBusiness.DataAccess.Repositories
 {
@@ -19,19 +20,18 @@ namespace GlobalBusiness.DataAccess.Repositories
         Task<ReferralLink> GetUserReferralLink(string userId, ReferralType referralType);
         ReferralLink CreateUserReferralLink(ReferralType referralType);
         ReferralLink CreateUserReferralLink(string userId, ReferralType referralType);
+        bool ValidateReferralLink(string referralLink);
     }
     public class ReferralLinkRepository : IReferralLinkRepository
     {
         private readonly MyDbContext _context;
         private readonly UserManager<User> _userManager;
-        private readonly HttpContextAccessor _httpContext;
 
 
-        public ReferralLinkRepository(MyDbContext context, UserManager<User> userManager, HttpContextAccessor httpContext)
+        public ReferralLinkRepository(MyDbContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
-            _httpContext = httpContext;
         }
 
         public string GenerateReferralLink()
@@ -46,7 +46,7 @@ namespace GlobalBusiness.DataAccess.Repositories
 
         public async Task<ReferralLink> GetUserReferralLink(ReferralType referralType)
         {
-            var userId = _userManager.GetUserId(_httpContext.HttpContext.User);
+            var userId = _userManager.GetUserId(AppContext.Current.User);
             return await GetUserReferralLink(userId, referralType);
         }
 
@@ -57,7 +57,7 @@ namespace GlobalBusiness.DataAccess.Repositories
 
         public ReferralLink CreateUserReferralLink(ReferralType referralType)
         {
-            var userId = _userManager.GetUserId(_httpContext.HttpContext.User);
+            var userId = _userManager.GetUserId(AppContext.Current.User);
             return CreateUserReferralLink(userId,referralType);
         }
 
@@ -73,6 +73,11 @@ namespace GlobalBusiness.DataAccess.Repositories
             _context.ReferralLinks.Add(model);
             _context.SaveChanges();
             return model;
+        }
+
+        public bool ValidateReferralLink(string referralLink)
+        {
+            return _context.ReferralLinks.Any(l=>l.Link == referralLink && l.IsDeleted == false && l.User.LockoutEnabled == false && l.User.IsDeleted == false);
         }
 
         private bool CheckLinkUniqueness(string link)

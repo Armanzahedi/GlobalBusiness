@@ -102,10 +102,27 @@ function openModal(link) {
         //}
         $("#myModalBody").html(result);
         var title = $("#title").val();
-        if (title != null && title != undefined) {
+        if (title != null && title !== undefined) {
             $("#myModalLabel").html(title);
         } else {
             $("#myModalLabel").html("");
         }
     });
 }
+function copy(btn,input) {
+    var $btn = $(btn), 
+        $input = $("#"+input);
+    if ($btn.hasClass("btn-success"))
+        return false;
+    $input.get(0).select();
+    $input.get(0).setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    toastr.success("Link copied to your clipboard", "success");
+
+    //show success
+    $btn.removeClass("btn-info").addClass("btn-success").children("i").text("check_circle");
+
+    setTimeout(function () {
+        $btn.addClass("btn-info").removeClass("btn-success").children("i").text("content_copy");
+    }, 2000);
+};
