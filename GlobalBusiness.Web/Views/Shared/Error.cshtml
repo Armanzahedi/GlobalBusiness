@@ -4,8 +4,8 @@
     if (ViewBag.ErrorCode == 404)
     {
         ViewData["Title"] = "Not Found";
-        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
+    Layout = "_LoginLayout";
 }
 @if (ViewBag.ErrorCode == 404)
 {
@@ -14,7 +14,7 @@
             <div class="content">
                 <div class="container">
                     <div class="text-center">
-                        <img class="svg ignoreSvg img-error" style="width:150px;height: auto;" src="~/management/img/vectors/invalid-link.svg" />
+                        <img class="ignoreSvg img-error" style="width:150px;height: auto;" src="/management/img/vectors/invalid-link.svg" />
                         <h1 class="mt-5 mb-2">Invlalid link :(</h1>
                         <p class="text-muted">
                             The link is whether invalid or expired!

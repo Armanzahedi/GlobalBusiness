@@ -23,7 +23,8 @@ namespace GlobalBusiness.Infrastructure.DTOs.Auth
         public string Lastname { get; set; }
 
         [Required]
-        [RegularExpression("^(?!^0+$)[a-zA-Z0-9]{3,20}$",ErrorMessage = "Please enter a valid passport number")]
+        [Display(Name = "Passport number")]
+        //[RegularExpression("^(?!^0+$)[a-zA-Z0-9]{3,20}$",ErrorMessage = "Please enter a valid passport number")]
         public string PassportNumber { get; set; }
 
         [Required]
@@ -41,8 +42,8 @@ namespace GlobalBusiness.Infrastructure.DTOs.Auth
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-        public bool AgreedToTerms { get; set; }
+        //[Required]
+        //public bool AgreedToTerms { get; set; }
     }
 
     public class ParentNode

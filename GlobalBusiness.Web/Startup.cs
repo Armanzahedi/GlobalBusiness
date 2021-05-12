@@ -46,14 +46,22 @@ namespace GlobalBusiness.Web
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
-            services.AddIdentity<User, IdentityRole>()
-            .AddEntityFrameworkStores<MyDbContext>()
-            .AddDefaultTokenProviders()
-            .AddErrorDescriber<LocalizedIdentityErrorDescriber>();
+            services.AddIdentity<User, IdentityRole>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = true;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 6;
+                })
+                .AddEntityFrameworkStores<MyDbContext>()
+                .AddDefaultTokenProviders();
+            //.AddErrorDescriber<LocalizedIdentityErrorDescriber>();
             services.ConfigureApplicationCookie(options =>
             {
-                options.AccessDeniedPath = new PathString("/Identity/Account/AccessDenied");
-                options.LoginPath = new PathString("/Identity/Account/Login");
+                options.AccessDeniedPath = new PathString("/Auth/AccessDenied");
+                options.LoginPath = new PathString("/Auth/Login");
             });
             services.AddDbContext<MyDbContext>(opt =>
             {

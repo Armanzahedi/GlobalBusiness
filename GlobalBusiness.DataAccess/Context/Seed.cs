@@ -29,6 +29,7 @@ namespace GlobalBusiness.DataAccess.Context
                 FirstName = "Admin",
                 LastName = "Admin",
                 UserName = "Admin",
+                EmailConfirmed = true,
                 NormalizedUserName = "Admin".ToUpper(),
                 Email = "Admin@Admin.com",
                 NormalizedEmail = "Admin@Admin.com".ToUpper()
@@ -42,6 +43,7 @@ namespace GlobalBusiness.DataAccess.Context
                 FirstName = "Superuser",
                 LastName = "Superuser",
                 UserName = "Superuser",
+                EmailConfirmed = true,
                 NormalizedUserName = "Superuser".ToUpper(),
                 Email = "Superuser@Superuser.com",
                 NormalizedEmail = "Superuser@Superuser.com".ToUpper()
@@ -226,7 +228,7 @@ namespace GlobalBusiness.DataAccess.Context
             #region Seed Packages
 
             modelBuilder.Entity<Package>().HasData(
-                new Package 
+                new Package
                 {
                     Id = 1,
                     Name = "Moon",

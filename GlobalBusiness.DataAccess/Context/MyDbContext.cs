@@ -20,6 +20,8 @@ namespace GlobalBusiness.DataAccess.Context
         public DbSet<RoleMenuPermission> RoleMenuPermission { get; set; }
         public DbSet<ReferralLink> ReferralLinks { get; set; }
         public DbSet<ReferralTree> ReferralTree { get; set; }
+        public DbSet<UserPackage> UserPackages { get; set; }
+        public DbSet<Package> Packages { get; set; }
                 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,6 +42,8 @@ namespace GlobalBusiness.DataAccess.Context
                 .HasForeignKey(n => n.ChildNodeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<UserPackage>()
+                .HasKey(c => new { c.UserId, c.PackageId });
             modelBuilder.Seed();
             base.OnModelCreating(modelBuilder);
         }

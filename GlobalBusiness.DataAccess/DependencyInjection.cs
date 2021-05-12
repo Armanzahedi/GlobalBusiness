@@ -13,7 +13,7 @@ namespace GlobalBusiness.DataAccess
             #region Add Repositories
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IReferralLinkRepository, ReferralLinkRepository>();
+            //services.AddScoped<IReferralLinkRepository, ReferralLinkRepository>();
             services.AddScoped<ILogRepository, LogRepository>();
 
             #endregion

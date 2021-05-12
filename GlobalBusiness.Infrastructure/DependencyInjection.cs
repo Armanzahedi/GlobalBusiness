@@ -13,6 +13,7 @@ namespace GlobalBusiness.Infrastructure
         {
             #region Add Services
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IReferralLinkService, ReferralLinkService>();
             #endregion
 
             return services;
